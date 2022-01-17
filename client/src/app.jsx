@@ -17,6 +17,7 @@ import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import ProductsPage from './pages/products-page';
 import ProductPage from './pages/product-page';
+import ContactUsPage from './pages/contact-us-page';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/information" element={<InformationPage />} />
+          <Route path="/contactUs" element={<ContactUsPage />} />
         </Route>
         <Route path="/" element={<DashboardLayout />}>
           <Route path="/profile" element={<ProfilePage />} />
