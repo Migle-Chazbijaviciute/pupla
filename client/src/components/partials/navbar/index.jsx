@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -13,9 +14,19 @@ const Navbar = () => {
     color: theme.palette.primary.light,
   });
 
+  const StyledFont = styled(NavLink)({
+    color: theme.palette.primary.dark,
+    textTransform: 'uppercase',
+    paddingInline: 25,
+    textDecoration: 'none',
+    '&.active': {
+      textDecoration: 'underline',
+    },
+  });
+
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ px: 12 }}>
         <Toolbar
           sx={{
             justifyContent: 'flex-end',
@@ -49,6 +60,21 @@ const Navbar = () => {
         </Toolbar>
         <Box />
       </AppBar>
+      <Box sx={{
+        minWidth: '100%',
+        minHeight: theme.mixins.toolbar.minHeight,
+        display: 'inline-flex',
+        background: theme.palette.primary.light,
+        justifyContent: 'center',
+        alignItems: 'center',
+        px: 12,
+      }}
+      >
+        <StyledFont to="/"> home</StyledFont>
+        <StyledFont to="/products"> products</StyledFont>
+        <StyledFont to="/information"> information</StyledFont>
+        <StyledFont to="/contactUs"> contact us</StyledFont>
+      </Box>
     </Box>
   );
 };

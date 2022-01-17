@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material';
 
 const theme = createTheme({
+  spacing: 2,
   palette: {
     primary: {
       main: '#060607', // beveik juoda
