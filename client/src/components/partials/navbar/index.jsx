@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, useTheme, styled,
+  AppBar, Box, Toolbar, IconButton, useTheme, styled, Divider,
 } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -75,6 +75,7 @@ const Navbar = () => {
         <StyledFont to="/information"> information</StyledFont>
         <StyledFont to="/contactUs"> contact us</StyledFont>
       </Box>
+      <Divider orientation="horizontal" color={theme.palette.secondary.main} />
     </Box>
   );
 };

@@ -3,8 +3,8 @@ import {
   Box,
 } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../partials/navbar/index';
-// import Footer from '../partials/footer';
+import Navbar from '../partials/navbar';
+import Footer from '../partials/footer';
 
 const PageLayout = () => (
   <Box>
@@ -12,7 +12,7 @@ const PageLayout = () => (
     <Box component="main">
       <Outlet />
     </Box>
-    {/* <Footer /> */}
+    <Footer />
   </Box>
 );
 
