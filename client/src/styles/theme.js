@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -26,12 +26,9 @@ const theme = createTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-});
-
-export const lightTheme = createTheme(theme, {
   mixins: {
     toolbar: {
-      height: 70,
+      minHeight: 72,
     },
     footer: {
       height: 64,
@@ -39,4 +36,4 @@ export const lightTheme = createTheme(theme, {
   },
 });
 
-export default lightTheme;
+export default theme;

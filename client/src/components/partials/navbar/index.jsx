@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, useTheme,
+  AppBar, Box, Toolbar, IconButton, useTheme, styled,
 } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { styled } from '@mui/material/styles';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -16,29 +15,37 @@ const Navbar = () => {
 
   return (
     <Box>
-      <AppBar position="static" sx={{ height: 70 }}>
+      <AppBar position="static">
         <Toolbar
-          container
-          direction="row"
-          justifyContent="space-around"
-          // sx={{
-          //   display: 'grid',
-          // }}
+          sx={{
+            justifyContent: 'flex-end',
+          }}
         >
           <Box
-            component="img"
             sx={{
-              height: 64,
+              minWidth: '60%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
-            alt="Pupla logo."
-            src="/static/images/pupla-logo.jpg"
-          />
-          <StyledButton>
-            <PermIdentityIcon />
-          </StyledButton>
-          <StyledButton>
-            <ShoppingBagIcon />
-          </StyledButton>
+          >
+            <Box
+              component="img"
+              sx={{
+                height: 64,
+              }}
+              alt="Pupla logo."
+              src="/static/images/pupla-logo.jpg"
+            />
+            <Box>
+              <StyledButton href="/profile">
+                <PermIdentityIcon />
+              </StyledButton>
+              <StyledButton href="/cart">
+                <ShoppingBagIcon />
+              </StyledButton>
+            </Box>
+          </Box>
         </Toolbar>
         <Box />
       </AppBar>
