@@ -384,15 +384,15 @@
   "sizes":[
     {
       "id":"1",
-      "title":"s"
+      "title":"S"
     },
     {
       "id":"2",
-      "title":"m"
+      "title":"M"
     },
     {
       "id":"3",
-      "title":"l"
+      "title":"L"
     }
   ]
 }
