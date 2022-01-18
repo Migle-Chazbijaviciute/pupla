@@ -8,13 +8,7 @@ const Footer = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-    }}
-    >
+    <Box>
       <Divider orientation="horizontal" color={theme.palette.secondary.main} />
       <Box sx={{
         height: theme.mixins.footer.height,

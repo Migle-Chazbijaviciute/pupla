@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, useTheme, styled, Divider,
+  AppBar, Box, Toolbar, IconButton, useTheme, styled,
 } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -14,32 +13,19 @@ const Navbar = () => {
     color: theme.palette.primary.light,
   });
 
-  const StyledFont = styled(NavLink)({
-    color: theme.palette.primary.dark,
-    textTransform: 'uppercase',
-    paddingInline: 25,
-    textDecoration: 'none',
-    '&.active': {
-      textDecoration: 'underline',
-    },
-  });
-
   return (
     <Box>
       <AppBar position="static" sx={{ px: 12 }}>
-        <Toolbar
-          sx={{
-            justifyContent: 'flex-end',
-          }}
-        >
+        <Toolbar>
           <Box
             sx={{
-              minWidth: '60%',
               display: 'flex',
-              justifyContent: 'space-between',
               alignItems: 'center',
+              justifyContent: 'space-between',
+              width: 1 / 1,
             }}
           >
+            <Box sx={{ width: 80, flexGrow: 0 }} />
             <Box
               component="img"
               sx={{
@@ -48,7 +34,10 @@ const Navbar = () => {
               alt="Pupla logo."
               src="/static/images/pupla-logo.jpg"
             />
-            <Box>
+            <Box sx={{
+              width: 80, flexGrow: 0, display: 'flex', justifyContent: 'flex-end',
+            }}
+            >
               <StyledButton href="/profile">
                 <PermIdentityIcon />
               </StyledButton>
@@ -60,22 +49,6 @@ const Navbar = () => {
         </Toolbar>
         <Box />
       </AppBar>
-      <Box sx={{
-        minWidth: '100%',
-        minHeight: theme.mixins.toolbar.minHeight,
-        display: 'inline-flex',
-        background: theme.palette.primary.light,
-        justifyContent: 'center',
-        alignItems: 'center',
-        px: 12,
-      }}
-      >
-        <StyledFont to="/"> home</StyledFont>
-        <StyledFont to="/products"> products</StyledFont>
-        <StyledFont to="/information"> information</StyledFont>
-        <StyledFont to="/contactUs"> contact us</StyledFont>
-      </Box>
-      <Divider orientation="horizontal" color={theme.palette.secondary.main} />
     </Box>
   );
 };
