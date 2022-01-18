@@ -16,24 +16,31 @@ const Navigation = () => {
       textDecoration: 'underline',
     },
   });
-  return (
-    <Box sx={{
-      minWidth: '100%',
-      minHeight: theme.mixins.navigation.minHeight,
+
+  const StyledNavBox = styled(Box)({
+    width: '100%',
+    minHeight: theme.mixins.navigation.minHeight,
+    background: theme.palette.primary.light,
+    justifyContent: 'center',
+    alignItems: 'center',
+    px: 24,
+    borderBottom: 'solid 1px ',
+    borderColor: theme.palette.primary.border,
+    [theme.breakpoints.up('xs')]: {
+      display: 'none',
+    },
+    [theme.breakpoints.up('md')]: {
       display: 'inline-flex',
-      background: theme.palette.primary.light,
-      justifyContent: 'center',
-      alignItems: 'center',
-      px: 12,
-      borderBottom: 'solid 1px ',
-      borderColor: theme.palette.primary.border,
-    }}
-    >
+      justifyContent: 'space-evenly',
+    },
+  });
+  return (
+    <StyledNavBox>
       <StyledFont to="/"> home</StyledFont>
       <StyledFont to="/products"> products</StyledFont>
       <StyledFont to="/information"> information</StyledFont>
       <StyledFont to="/contactUs"> contact us</StyledFont>
-    </Box>
+    </StyledNavBox>
   );
 };
 
