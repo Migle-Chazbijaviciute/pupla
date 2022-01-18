@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, useTheme, styled,
+  AppBar, Box, Toolbar, IconButton, useTheme, styled, Link,
 } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
@@ -26,14 +26,16 @@ const Navbar = () => {
             }}
           >
             <Box sx={{ width: 80, flexGrow: 0 }} />
-            <Box
-              component="img"
-              sx={{
-                height: 64,
-              }}
-              alt="Pupla logo."
-              src="/static/images/pupla-logo.jpg"
-            />
+            <Link href="/">
+              <Box
+                component="img"
+                sx={{
+                  height: 64,
+                }}
+                alt="Pupla logo."
+                src="/static/images/pupla-logo.jpg"
+              />
+            </Link>
             <Box sx={{
               width: 80, flexGrow: 0, display: 'flex', justifyContent: 'flex-end',
             }}

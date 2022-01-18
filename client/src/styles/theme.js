@@ -7,6 +7,7 @@ const theme = createTheme({
       main: '#060607', // beveik juoda
       light: '#E6E4E4', // sviesi viso background
       dark: '#6B6767', // tamsiai pilka-srifto
+      border: '#747373', // borderio spalva
     },
     secondary: {
       main: '#D9D9D7', // sviesiai pilka
@@ -31,8 +32,11 @@ const theme = createTheme({
     toolbar: {
       minHeight: 72,
     },
+    navigation: {
+      minHeight: 72,
+    },
     footer: {
-      height: 64,
+      height: 58,
     },
   },
 });

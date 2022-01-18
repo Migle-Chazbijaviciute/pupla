@@ -1,19 +1,25 @@
 import React from 'react';
 import {
   Box,
+  useTheme,
 } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../partials/navbar';
 import Footer from '../partials/footer';
 
-const DashboardLayout = () => (
-  <Box>
-    <Navbar />
-    <Box component="main">
-      <Outlet />
+const DashboardLayout = () => {
+  const theme = useTheme();
+
+  const vh = `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px)`;
+  return (
+    <Box>
+      <Navbar />
+      <Box component="main" minHeight={vh}>
+        <Outlet />
+      </Box>
+      <Footer />
     </Box>
-    <Footer />
-  </Box>
-);
+  );
+};
 
 export default DashboardLayout;

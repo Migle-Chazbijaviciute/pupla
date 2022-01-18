@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, Link } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { useTheme } from '@emotion/react';
@@ -9,7 +9,6 @@ const Footer = () => {
 
   return (
     <Box>
-      <Divider orientation="horizontal" color={theme.palette.secondary.main} />
       <Box sx={{
         height: theme.mixins.footer.height,
         background: theme.palette.secondary.main,
@@ -17,6 +16,8 @@ const Footer = () => {
         paddingInline: 20,
         justifyContent: 'space-between',
         alignItems: 'center',
+        borderTop: 'solid 1px',
+        borderColor: theme.palette.primary.border,
       }}
       >
         <Box>

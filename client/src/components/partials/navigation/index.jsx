@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Divider, Box, useTheme, styled,
+  Box, useTheme, styled,
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
@@ -17,24 +17,23 @@ const Navigation = () => {
     },
   });
   return (
-    <>
-      <Box sx={{
-        minWidth: '100%',
-        minHeight: theme.mixins.toolbar.minHeight,
-        display: 'inline-flex',
-        background: theme.palette.primary.light,
-        justifyContent: 'center',
-        alignItems: 'center',
-        px: 12,
-      }}
-      >
-        <StyledFont to="/"> home</StyledFont>
-        <StyledFont to="/products"> products</StyledFont>
-        <StyledFont to="/information"> information</StyledFont>
-        <StyledFont to="/contactUs"> contact us</StyledFont>
-      </Box>
-      <Divider orientation="horizontal" color={theme.palette.secondary.main} />
-    </>
+    <Box sx={{
+      minWidth: '100%',
+      minHeight: theme.mixins.navigation.minHeight,
+      display: 'inline-flex',
+      background: theme.palette.primary.light,
+      justifyContent: 'center',
+      alignItems: 'center',
+      px: 12,
+      borderBottom: 'solid 1px ',
+      borderColor: theme.palette.primary.border,
+    }}
+    >
+      <StyledFont to="/"> home</StyledFont>
+      <StyledFont to="/products"> products</StyledFont>
+      <StyledFont to="/information"> information</StyledFont>
+      <StyledFont to="/contactUs"> contact us</StyledFont>
+    </Box>
   );
 };
 
