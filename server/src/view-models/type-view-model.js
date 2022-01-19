@@ -1,9 +1,9 @@
 class TypeViewModel {
-  constructor(typeModel) {
-    this.id = typeModel._id;
-    this.title = typeModel.title;
-    this.createdAt = typeModel.createdAt;
-    this.updatedAt = typeModel.updatedAt;
+  constructor({ _id, title, createdAt, updatedAt }) {
+    this.id = _id;
+    this.title = title;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
 

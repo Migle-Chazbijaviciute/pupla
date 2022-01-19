@@ -1,9 +1,9 @@
 class SizeViewModel {
-  constructor(sizeModel) {
-    this.id = sizeModel._id;
-    this.title = sizeModel.title;
-    this.createdAt = sizeModel.createdAt;
-    this.updatedAt = sizeModel.updatedAt;
+  constructor({ _id, title, createdAt, updatedAt }) {
+    this.id = _id;
+    this.title = title;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 };
 
