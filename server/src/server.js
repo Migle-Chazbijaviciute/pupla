@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const Mongoose = require('mongoose');
 require('dotenv').config();
 const typesRouter = require('./routes/types-router');
+const authRouter = require('./routes/auth-router');
 
 const server = express();
 const { SERVER_PORT, DB_CONNECTION } = process.env;
@@ -14,6 +15,7 @@ server.use(express.json());
 
 // Response handlers
 server.use('/api/types', typesRouter);
+server.use('/api/auth', authRouter);
 
 server.listen(SERVER_PORT, () => {
   console.log(`Page is running on http://localhost:${SERVER_PORT}/`);
