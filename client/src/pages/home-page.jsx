@@ -45,11 +45,18 @@ const HomePage = () => {
 
   const StyledHero = styled(Box)({
     position: 'relative',
-    width: '100%',
-    // [theme.breakpoints.down('xs')]: {
-    //   marginTop: 10,
-    //   width: '80%',
-    // },
+    [theme.breakpoints.up('xs')]: {
+      width: '90%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '70%',
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '60%',
+    },
   });
 
   const StyledHeroQoute = styled(Box)({
@@ -57,10 +64,16 @@ const HomePage = () => {
     position: 'relative',
     bottom: 30,
     [theme.breakpoints.up('xs')]: {
-      width: '70%',
+      width: '60%',
     },
     [theme.breakpoints.up('md')]: {
       width: '50%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '40%',
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: '30%',
     },
   });
 
@@ -94,7 +107,7 @@ const HomePage = () => {
       <StyledHero
         component="img"
         alt="Pupla hero."
-        src="/static/images/hero-trio.png"
+        src="/static/images/hero-image.jpg"
       />
       <StyledHeroQoute
         component="img"
