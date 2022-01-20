@@ -8,7 +8,7 @@ import Navbar from '../partials/navbar';
 import Footer from '../partials/footer';
 import Navigation from '../partials/navigation';
 
-const NavigationLayout = () => {
+const NavLayout = () => {
   const theme = useTheme();
 
   const vh = `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px - ${theme.mixins.navigation.minHeight}px)`;
@@ -17,11 +17,20 @@ const NavigationLayout = () => {
     <Box>
       <Navbar />
       <Navigation />
-      <Box component="main" minHeight={vh}>
+      <Box
+        component="main"
+        sx={{
+          minHeight: vh,
+          [theme.breakpoints.down('md')]: {
+            minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px)`,
+          },
+
+        }}
+      >
         <Outlet />
       </Box>
       <Footer />
     </Box>
   );
 };
-export default NavigationLayout;
+export default NavLayout;
