@@ -18,7 +18,7 @@ const ContactUsPage = () => {
 
   const StyledInfo = styled(Typography)({
     color: theme.palette.primary.dark,
-    textTransform: 'uppercase',
+    // textTransform: 'uppercase',
     fontSize: '1.05rem',
     marginBottom: 20,
   });
@@ -49,12 +49,12 @@ const ContactUsPage = () => {
         <StyledInsta
           component="img"
           alt="Pupla instagram."
-          src="/static/images/pupla-insta-small.png"
+          src="/static/images/pupla-insta.png"
         />
         <Box>
-          <StyledInfo>phone number: &nbsp;+37062221111</StyledInfo>
-          <StyledInfo>email: &nbsp;pupla.sho@gmail.com</StyledInfo>
-          <StyledInfo>instagram: &nbsp;@sho.pupla</StyledInfo>
+          <StyledInfo>PHONE NUMBER: &nbsp;+37062221111</StyledInfo>
+          <StyledInfo>EMAIL: &nbsp;pupla.sho@gmail.com</StyledInfo>
+          <StyledInfo>INSTAGRAM: &nbsp;@sho.pupla</StyledInfo>
         </Box>
       </Box>
     </Box>
