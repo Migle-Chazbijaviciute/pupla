@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import StandartLayout from './components/layouts/standart-layout';
+import NavigationLayout from './components/layouts/navigation-layout';
 import DashboardLayout from './components/layouts/dashboard-layout';
 import theme from './styles/theme';
 import ProfilePage from './pages/profile-page';
@@ -24,7 +24,7 @@ const App = () => (
     <BrowserRouter>
       <CssBaseline />
       <Routes>
-        <Route path="/" element={<StandartLayout />}>
+        <Route path="/" element={<NavigationLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/products" element={<ProductsPage />} />

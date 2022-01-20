@@ -8,7 +8,7 @@ import Navbar from '../partials/navbar';
 import Footer from '../partials/footer';
 import Navigation from '../partials/navigation';
 
-const PageLayout = () => {
+const NavigationLayout = () => {
   const theme = useTheme();
 
   const vh = `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px - ${theme.mixins.navigation.minHeight}px)`;
@@ -24,4 +24,4 @@ const PageLayout = () => {
     </Box>
   );
 };
-export default PageLayout;
+export default NavigationLayout;
