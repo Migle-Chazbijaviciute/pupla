@@ -10,7 +10,7 @@ const HomePage = () => {
   const StyledHeader = styled(Typography)({
     color: theme.palette.secondary.dark,
     textTransform: 'uppercase',
-    fontSize: 30,
+    fontSize: '2em',
     textDecoration: 'none',
     marginBottom: 30,
   });
