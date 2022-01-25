@@ -120,7 +120,7 @@ const HomePage = () => {
       <ImagesBox>
         {limited.map(({ img, title }) => (
           <StyledImgBox key={title}>
-            <Link href="/products">
+            <Link href="/product/1">
               <Box
                 component="img"
                 sx={{
