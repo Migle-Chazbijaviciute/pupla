@@ -11,6 +11,7 @@ import NoNavLayout from './components/layouts/no-nav-layout';
 import theme from './styles/theme';
 import ProfilePage from './pages/profile-page';
 import CartPage from './pages/cart-page';
+import SavedPage from './pages/saved-page';
 import HomePage from './pages/home-page';
 import InformationPage from './pages/information-page';
 import LoginPage from './pages/login-page';
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/contactUs" element={<ContactUsPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/saved" element={<SavedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/*" element={<ErrorPage />} />
         </Route>

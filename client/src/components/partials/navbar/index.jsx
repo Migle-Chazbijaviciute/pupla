@@ -3,6 +3,7 @@ import {
   AppBar, Box, Toolbar, IconButton, Link,
 } from '@mui/material';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import Favorite from '@mui/icons-material/Favorite';
 import ProfilePopover from './profile-popover';
 import ToggleMenu from './toggle-menu';
 
@@ -36,6 +37,9 @@ const Navbar = () => (
           }}
           >
             <ProfilePopover />
+            <IconButton href="/saved" color="secondary">
+              <Favorite />
+            </IconButton>
             <IconButton href="/cart" color="secondary">
               <ShoppingBagIcon />
             </IconButton>

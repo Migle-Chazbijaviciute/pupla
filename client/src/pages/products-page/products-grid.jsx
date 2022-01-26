@@ -1,12 +1,9 @@
 import React from 'react';
-// import { v4 as uuidv4 } from 'uuid';
 import {
   Grid,
   useTheme,
   styled,
 } from '@mui/material';
-// import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-// import Favorite from '@mui/icons-material/Favorite';
 import ProductCard from './product-card';
 
 const ProductsGrid = () => {
@@ -74,12 +71,6 @@ const ProductsGrid = () => {
       price: 50,
     },
   ];
-
-  // const StyledInfo = styled(Typography)({
-  //   color: theme.palette.primary.dark,
-  //   textTransform: 'uppercase',
-  //   fontSize: '1.2rem',
-  // });
 
   const StyledGridContainer = styled(Grid)({
     backgroundColor: theme.palette.secondary.main,
