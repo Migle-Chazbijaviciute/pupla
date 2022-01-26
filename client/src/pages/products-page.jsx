@@ -15,8 +15,11 @@ import {
   // ListItemText,
   List,
   Button,
+  Checkbox,
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 const itemData = [
   {
@@ -186,13 +189,21 @@ const ProductsPage = () => {
       </StyledActions>
       <StyledGridContainer container maxWidth="90%">
         {itemData.map(({ img, title }) => (
-          <Grid item key={img} xs={12} md={6} lg={4} xl={3}>
+          <Grid item key={img} xs={12} md={6} lg={4} xl={3} sx={{ position: 'relative' }}>
             <Box
               src={`${img}?w=164&h=164&fit=crop&auto=format`}
               component="img"
               width="100%"
               alt={title}
               loading="lazy"
+            />
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              sx={{
+                position: 'absolute', right: 0, top: 0,
+              }}
+              size="large"
             />
           </Grid>
         ))}
