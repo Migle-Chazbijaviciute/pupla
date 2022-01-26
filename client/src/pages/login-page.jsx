@@ -53,8 +53,9 @@ const LoginPage = () => {
         </Grid>
         <Grid item xs={12} sx={{ mb: 4 }}>
           <Button
-            variant="outlined"
+            variant="contained"
             fullWidth
+            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Login
           </Button>
