@@ -8,13 +8,13 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
   Select,
   Drawer,
-  ListItem,
   IconButton,
-  // ListItemText,
-  List,
-  Button,
+  // Button,
   Checkbox,
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -78,9 +78,31 @@ const ProductsPage = () => {
   const theme = useTheme();
 
   const filters = [
-    { title: 'Color' },
-    { title: 'Type' },
-    { title: 'Size' },
+    {
+      title: 'Color',
+      options: [
+        { name: 'Black' },
+        { name: 'White' },
+        { name: 'Grey' },
+        { name: 'Nude' },
+      ],
+    },
+    {
+      title: 'Type',
+      options: [
+        { name: 'Shirt' },
+        { name: 'Dress' },
+        { name: 'Hoodie' },
+      ],
+    },
+    {
+      title: 'Size',
+      options: [
+        { name: 'S' },
+        { name: 'M' },
+        { name: 'L' },
+      ],
+    },
   ];
 
   const StyledHeader = styled(Typography)({
@@ -175,15 +197,22 @@ const ProductsPage = () => {
             onClose={toggleDrawer}
           >
             <Typography sx={{ textAlign: 'center', mt: 10 }}>CHOOSE FILTERS</Typography>
-            <List>
-              {filters.map((x) => (
-                <ListItem key={x.title}>
-                  <Button>
-                    {x.title}
-                  </Button>
-                </ListItem>
+            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+              {filters.map(({ title, options }) => (
+                <>
+                  <FormLabel component="legend" key={title}>{title}</FormLabel>
+                  <FormGroup>
+                    {options.map(({ name }) => (
+                      <FormControlLabel
+                        control={<Checkbox name={name} />}
+                        label={name}
+                        key={name}
+                      />
+                    ))}
+                  </FormGroup>
+                </>
               ))}
-            </List>
+            </FormControl>
           </StyledDrawer>
         </Box>
       </StyledActions>
