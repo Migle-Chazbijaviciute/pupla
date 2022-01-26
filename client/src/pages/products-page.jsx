@@ -12,8 +12,9 @@ import {
   Drawer,
   ListItem,
   IconButton,
-  ListItemText,
+  // ListItemText,
   List,
+  Button,
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
@@ -70,7 +71,14 @@ const itemData = [
 
 const ProductsPage = () => {
   const [sort, setSort] = React.useState('');
+  const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+
+  const filters = [
+    { title: 'Color' },
+    { title: 'Type' },
+    { title: 'Size' },
+  ];
 
   const StyledHeader = styled(Typography)({
     color: theme.palette.secondary.dark,
@@ -106,12 +114,22 @@ const ProductsPage = () => {
     height: 60,
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'baseline',
+    // alignItems: 'flex-start',
     paddingInline: 38,
+  });
+
+  const StyledDrawer = styled(Drawer)({
+    '.MuiDrawer-paper': {
+      width: 200,
+    },
   });
 
   const handleChange = (event) => {
     setSort(event.target.value);
+  };
+
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
 
   return (
@@ -144,18 +162,26 @@ const ProductsPage = () => {
           </FormControl>
         </Box>
         <Box>
-          <IconButton>
+          <IconButton onClick={toggleDrawer} sx={{ height: 60 }}>
+            <Typography sx={{ pr: 5 }}>FILTER</Typography>
             <FilterAltIcon />
           </IconButton>
-          <Drawer>
+          <StyledDrawer
+            open={open}
+            anchor="right"
+            onClose={toggleDrawer}
+          >
+            <Typography sx={{ textAlign: 'center', mt: 10 }}>CHOOSE FILTERS</Typography>
             <List>
-              <ListItem>
-                <ListItemText>
-                  Filtras
-                </ListItemText>
-              </ListItem>
+              {filters.map((x) => (
+                <ListItem key={x.title}>
+                  <Button>
+                    {x.title}
+                  </Button>
+                </ListItem>
+              ))}
             </List>
-          </Drawer>
+          </StyledDrawer>
         </Box>
       </StyledActions>
       <StyledGridContainer container maxWidth="90%">
