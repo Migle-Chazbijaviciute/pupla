@@ -18,6 +18,7 @@ import RegisterPage from './pages/register-page';
 import ProductsPage from './pages/products-page';
 import ProductPage from './pages/product-page';
 import ContactUsPage from './pages/contact-us-page';
+import ErrorPage from './pages/error-page';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Route>
         <Route path="/" element={<NoNavLayout />}>
           <Route path="/login" element={<LoginPage />} />
