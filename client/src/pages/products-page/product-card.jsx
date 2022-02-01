@@ -8,11 +8,16 @@ import {
   Checkbox,
   Link,
   Typography,
+  Button,
+  IconButton,
 } from '@mui/material';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const ProductCard = ({ img, title, price }) => {
+const ProductCard = ({
+  img, title, price, shouldAddButton, deleteIcon,
+}) => {
   const theme = useTheme();
 
   const StyledInfo = styled(Typography)({
@@ -40,14 +45,36 @@ const ProductCard = ({ img, title, price }) => {
           €
         </StyledInfo>
       </Box>
-      <Checkbox
-        icon={<FavoriteBorder />}
-        checkedIcon={<Favorite />}
-        sx={{
-          position: 'absolute', right: 10, top: 10,
-        }}
-        size="medium"
-      />
+      {
+        shouldAddButton && (
+        <Button fullWidth variant="outlined" sx={{ mt: 5 }}>
+          MOVE TO BAG
+        </Button>
+        )
+      }
+      {
+        deleteIcon
+          ? (
+            <IconButton
+              sx={{
+                position: 'absolute', right: 10, top: 10,
+              }}
+              size="medium"
+            >
+              <DeleteOutlineIcon />
+            </IconButton>
+          )
+          : (
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              sx={{
+                position: 'absolute', right: 10, top: 10,
+              }}
+              size="medium"
+            />
+          )
+      }
     </Grid>
   );
 };

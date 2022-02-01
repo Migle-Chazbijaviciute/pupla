@@ -24,8 +24,8 @@ const Footer = () => {
           © 2022, PÙPLA
         </Box>
         <Box>
-          <Link href="https://www.facebook.com/sho.pupla/"><FacebookIcon sx={{ mx: 5 }} /></Link>
-          <Link href="https://www.instagram.com/sho.pupla/">
+          <Link href="https://www.facebook.com/sho.pupla/" target="blank"><FacebookIcon sx={{ mx: 5 }} /></Link>
+          <Link href="https://www.instagram.com/sho.pupla/" target="blank">
             <InstagramIcon sx={{ mx: 5 }} />
           </Link>
         </Box>
