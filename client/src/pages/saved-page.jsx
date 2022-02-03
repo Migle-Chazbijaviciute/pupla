@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Grid, useTheme, styled, Box, Typography,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import ProductCard from './products-page/product-card';
 
 const SavedPage = () => {
@@ -71,7 +72,7 @@ const SavedPage = () => {
       <StyledGridContainer container maxWidth="90%">
 
         {saved.length > 0 ? saved.map((item) => (
-          <ProductCard {...item} shouldAddButton deleteIcon />
+          <ProductCard key={uuidv4()} {...item} shouldAddButton deleteIcon />
         ))
           : <Box fontSize={22}>THERE IS NO SAVED ITEMS YET...</Box>}
 

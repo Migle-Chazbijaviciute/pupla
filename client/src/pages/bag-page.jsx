@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import ProductCard from './products-page/product-card';
 
 const BagPage = () => {
@@ -87,7 +88,7 @@ const BagPage = () => {
         <StyledGridContainer container direction="row">
           <Grid item xs={12} md={9}>
             {saved.length > 0 ? saved.map((item) => (
-              <List>
+              <List key={uuidv4()}>
                 <ListItem>
                   <Box sx={{
                     display: { xs: 'block', sm: 'flex' },

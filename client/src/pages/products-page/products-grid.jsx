@@ -4,6 +4,7 @@ import {
   useTheme,
   styled,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import ProductCard from './product-card';
 
 const ProductsGrid = () => {
@@ -73,7 +74,7 @@ const ProductsGrid = () => {
   return (
     <StyledGridContainer container maxWidth="90%">
       {itemData.map((item) => (
-        <ProductCard {...item} />
+        <ProductCard key={uuidv4()} {...item} />
       ))}
     </StyledGridContainer>
   );

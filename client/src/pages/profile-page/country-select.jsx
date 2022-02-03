@@ -5,6 +5,7 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 
 const countries = [
   { value: 'AF', title: 'Afghanistan' },
@@ -247,7 +248,6 @@ const CountrySelect = () => {
     >
       <InputLabel id="country">Country</InputLabel>
       <Select
-        divider
         labelId="country"
         id="country"
         value={country}
@@ -255,8 +255,14 @@ const CountrySelect = () => {
         onChange={handleChange}
         MenuProps={{ sx: { height: 300 } }}
       >
-        <MenuItem disabled="" value="">Please select</MenuItem>
-        {countries.map(({ value, title }) => <MenuItem value={value}>{title}</MenuItem>)}
+        {countries.map(({ value, title }) => (
+          <MenuItem
+            key={uuidv4()}
+            value={value}
+          >
+            {title}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

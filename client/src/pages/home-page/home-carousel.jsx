@@ -5,6 +5,7 @@ import {
   Typography,
   Link,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import { useTheme } from '@emotion/react';
 
 const HomeCarousel = () => {
@@ -81,14 +82,14 @@ const HomeCarousel = () => {
       <StyledHeader>limited edition</StyledHeader>
       <ImagesBox>
         {limited.map(({ img, title }) => (
-          <StyledImgBox key={title}>
+          <StyledImgBox key={uuidv4()}>
             <Link href="/product/1">
               <Box
                 component="img"
                 sx={{
                   width: '100%',
                 }}
-                alt="Limited edition."
+                alt={title}
                 src={img}
               />
             </Link>
