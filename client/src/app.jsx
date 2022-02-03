@@ -16,6 +16,7 @@ import HomePage from './pages/home-page';
 import InformationPage from './pages/information-page';
 import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
+import AdminPage from './pages/admin-page';
 import ProductsPage from './pages/products-page';
 import ProductPage from './pages/product-page';
 import ContactUsPage from './pages/contact-us-page';
@@ -40,6 +41,7 @@ const App = () => (
         <Route path="/" element={<NoNavLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
