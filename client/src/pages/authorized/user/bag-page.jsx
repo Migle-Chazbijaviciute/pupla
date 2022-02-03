@@ -15,7 +15,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import ProductCard from './products-page/product-card';
+import ProductCard from '../../products-page/product-card';
 
 const BagPage = () => {
   const theme = useTheme();
