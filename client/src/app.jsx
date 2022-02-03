@@ -10,7 +10,7 @@ import NavLayout from './components/layouts/nav-layout';
 import NoNavLayout from './components/layouts/no-nav-layout';
 import theme from './styles/theme';
 import ProfilePage from './pages/profile-page';
-import CartPage from './pages/cart-page';
+import BagPage from './pages/bag-page';
 import SavedPage from './pages/saved-page';
 import HomePage from './pages/home-page';
 import InformationPage from './pages/information-page';
@@ -32,7 +32,7 @@ const App = () => (
           <Route path="/information" element={<InformationPage />} />
           <Route path="/contactUs" element={<ContactUsPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/bag" element={<BagPage />} />
           <Route path="/saved" element={<SavedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/*" element={<ErrorPage />} />

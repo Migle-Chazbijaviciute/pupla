@@ -40,7 +40,7 @@ const Navbar = () => (
             <IconButton href="/saved" color="secondary">
               <Favorite />
             </IconButton>
-            <IconButton href="/cart" color="secondary">
+            <IconButton href="/bag" color="secondary">
               <ShoppingBagIcon />
             </IconButton>
           </Box>
