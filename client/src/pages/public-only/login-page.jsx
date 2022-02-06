@@ -118,6 +118,7 @@ const LoginPage = () => {
         <Grid item xs={12} sx={{ mb: 4 }}>
           <Button
             disabled={!isValid}
+            type="submit"
             variant="contained"
             fullWidth
             sx={{ backgroundColor: theme.palette.primary.main }}
