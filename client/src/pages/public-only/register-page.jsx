@@ -38,7 +38,7 @@ const validationSchema = yup.object({
     .max(32, 'Most 32 symbols')
     .matches(/^.*[A-ZĄČĘĖĮŠŲŪŽ]+.*$/, 'Atleast one capital letter')
     .matches(/^.*\d+.*$/, 'Atleast one number'),
-  passwordConfirmation: yup.string()
+  repeatPassword: yup.string()
     .required('Is required')
     .oneOf([yup.ref('password')], 'Passwords must match'),
   emailChecked: yup.boolean().oneOf([true]),
@@ -50,8 +50,7 @@ const initialValues = {
   surname: '',
   email: '',
   password: '',
-  passwordConfirmation: '',
-  subscribed: true,
+  repeatPassword: '',
   emailChecked: false,
   emailAvailable: false,
 };
@@ -61,14 +60,14 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async ({
-    email, name, surname, password, passwordConfirmation,
+    email, name, surname, password, repeatPassword,
   }) => {
     const user = await AuthService.register({
       email,
       name,
       surname,
       password,
-      repeatPassword: passwordConfirmation,
+      repeatPassword,
     });
     dispatch(login({ user }));
   };
@@ -208,6 +207,7 @@ const RegisterPage = () => {
         </Grid>
         <Grid item xs={12} sx={{ mb: 4 }}>
           <Button
+            type="submit"
             disabled={!isValid}
             variant="contained"
             fullWidth
