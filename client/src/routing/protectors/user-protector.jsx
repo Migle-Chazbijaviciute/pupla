@@ -12,7 +12,7 @@ const UserProtector = ({ children }) => {
     return <Navigate to={`${routes.LoginPage}?redirectTo=${pathname}`} />;
   }
 
-  if (auth.user.role !== 'user') {
+  if (auth.user.role !== 'USER') {
     return <Navigate to={routes.ProfilePage} />;
   }
 

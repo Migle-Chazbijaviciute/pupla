@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-// import { loggedInSelector } from '../store/auth';
+import { useSelector } from 'react-redux';
+import { loggedInSelector } from '../store/auth';
 import routeStructure from './route-structure';
 import pagesList from './page-routes-list';
 import pageProtectors from './protectors/page-protectors';
@@ -44,8 +44,7 @@ const generateRoutesRecursive = ({
 const routes = routeStructure.map(generateRoutesRecursive);
 
 const PageRouter = () => {
-  // const loggedIn = useSelector(loggedInSelector);
-  const loggedIn = true;
+  const loggedIn = useSelector(loggedInSelector);
   return (
     <BrowserRouter>
       <Routes>

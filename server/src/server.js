@@ -2,20 +2,33 @@ const express = require('express');
 const morgan = require('morgan');
 const Mongoose = require('mongoose');
 require('dotenv').config();
-const typesRouter = require('./routes/types-router');
+const cors = require('cors');
 const authRouter = require('./routes/auth-router');
+const userRouter = require('./routes/user-router');
+const typeRouter = require('./routes/type-router');
+const sizeRouter = require('./routes/size-router');
+const colorRouter = require('./routes/color-router');
 
 const server = express();
 const { SERVER_PORT, DB_CONNECTION } = process.env;
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+}
+
 // Middlewares
 server.use(morgan('tiny'));
-server.use(express.static('public'));
+// server.use(express.static('public'));
+server.use(cors(corsOptions));
 server.use(express.json());
 
 // Response handlers
-server.use('/api/types', typesRouter);
 server.use('/api/auth', authRouter);
+server.use('/api/types', typeRouter);
+server.use('/api/sizes', sizeRouter);
+server.use('/api/colors', colorRouter);
+server.use('/api/users', userRouter);
 
 server.listen(SERVER_PORT, () => {
   console.log(`Page is running on http://localhost:${SERVER_PORT}/`);
