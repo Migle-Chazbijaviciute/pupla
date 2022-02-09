@@ -35,6 +35,26 @@ const userSchema = new Mongoose.Schema({
     type: 'string',
     required: true,
   },
+  phoneNumber: {
+    type: 'string',
+    required: true,
+  },
+  country: {
+    type: 'string',
+    required: true,
+  },
+  address: {
+    type: 'string',
+    required: true,
+  },
+  city: {
+    type: 'string',
+    required: true,
+  },
+  zipcode: {
+    type: 'string',
+    required: true,
+  },
 }, {
   timestamps: true,
 });

@@ -42,6 +42,7 @@ const AuthService = new (class AuthService {
   }
 
   async register(formData) {
+    // console.log(formData);
     try {
       const response = await this.requester.post('/register', formData);
       const { user, token } = response.data;

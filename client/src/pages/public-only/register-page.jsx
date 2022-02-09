@@ -3,6 +3,7 @@ import {
   TextField,
   Grid,
   Button,
+  FormHelperText,
 } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
@@ -13,41 +14,66 @@ import routes from '../../routing/routes';
 import { login } from '../../store/auth';
 import AuthService from '../../services/auth-service';
 import StyledHeader from '../../components/styled-components/main-header';
+import CountrySelect from '../../components/styled-components/country-select';
 
 const validationSchema = yup.object({
   name: yup.string()
-    .required('Is required')
+    .required('Enter your name')
     .min(2, 'At least 2 letters')
     .max(32, 'Most 32 letters'),
   surname: yup.string()
-    .required('Is required')
+    .required('Enter your surname')
     .min(2, 'At least 2 letters')
     .max(32, 'Most 32 letters'),
   email: yup.string()
-    .required('Is required')
-    .email('Is not valid email')
+    .required('Enter your email')
+    .email('Email is not valid')
     .test('email-validator', 'Email unavailable', (_, context) => {
       const { emailChecked, emailAvailable } = context.parent;
       if (!emailChecked) return true;
 
       return emailAvailable;
     }),
+  emailChecked: yup.boolean().oneOf([true]),
+  emailAvailable: yup.boolean().oneOf([true]),
   password: yup.string()
-    .required('Is required')
+    .required('Enter your password')
     .min(6, 'At least 6 symbols')
     .max(32, 'Most 32 symbols')
     .matches(/^.*[A-ZĄČĘĖĮŠŲŪŽ]+.*$/, 'Atleast one capital letter')
     .matches(/^.*\d+.*$/, 'Atleast one number'),
   repeatPassword: yup.string()
-    .required('Is required')
+    .required('Repeat your password')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-  emailChecked: yup.boolean().oneOf([true]),
-  emailAvailable: yup.boolean().oneOf([true]),
+  phoneNumber: yup.string()
+    .required('Enter your mobile number')
+    .matches(/^[0-9]+$/, 'Phone number must be only digits')
+    .min(8)
+    .max(15),
+  address: yup.string()
+    .required('Enter your shipping address')
+    .min(2)
+    .max(32),
+  city: yup.string()
+    .required('Enter city')
+    .min(2)
+    .max(50),
+  zipcode: yup.string()
+    .required('Enter your zipcode')
+    .matches(/^[0-9]+$/, 'Must be only digits')
+    .min(5, 'Must be 5 symbols')
+    .max(5, 'Must be 5 symbols'),
+  country: yup.string().required('Select country'),
 });
 
 const initialValues = {
   name: '',
   surname: '',
+  phoneNumber: '',
+  country: '',
+  address: '',
+  city: '',
+  zipcode: '',
   email: '',
   password: '',
   repeatPassword: '',
@@ -60,12 +86,26 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async ({
-    email, name, surname, password, repeatPassword,
+    name,
+    surname,
+    phoneNumber,
+    country,
+    address,
+    city,
+    zipcode,
+    email,
+    password,
+    repeatPassword,
   }) => {
     const user = await AuthService.register({
-      email,
       name,
       surname,
+      phoneNumber,
+      country,
+      address,
+      city,
+      zipcode,
+      email,
       password,
       repeatPassword,
     });
@@ -159,6 +199,78 @@ const RegisterPage = () => {
             helperText={touched.surname && errors.surname}
             disabled={isSubmitting}
           />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 4 }}>
+          <TextField
+            name="address"
+            variant="outlined"
+            label="Address"
+            type="address"
+            fullWidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.address}
+            error={touched.address && Boolean(errors.address)}
+            helperText={touched.address && errors.address}
+            disabled={isSubmitting}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 4 }}>
+          <TextField
+            name="city"
+            variant="outlined"
+            label="City"
+            type="city"
+            fullWidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.city}
+            error={touched.city && Boolean(errors.city)}
+            helperText={touched.city && errors.city}
+            disabled={isSubmitting}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 4 }}>
+          <TextField
+            name="zipcode"
+            variant="outlined"
+            label="Zipcode"
+            type="zipcode"
+            fullWidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.zipcode}
+            error={touched.zipcode && Boolean(errors.zipcode)}
+            helperText={touched.zipcode && errors.zipcode}
+            disabled={isSubmitting}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 4 }}>
+          <TextField
+            name="phoneNumber"
+            variant="outlined"
+            label="Phone Number"
+            type="phoneNumber"
+            fullWidth
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.phoneNumber}
+            error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+            helperText={touched.phoneNumber && errors.phoneNumber}
+            disabled={isSubmitting}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 4 }}>
+          <CountrySelect
+            name="country"
+            type="country"
+            value={values.country}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.country && Boolean(errors.country)}
+            disabled={isSubmitting}
+          />
+          <FormHelperText sx={{ color: 'red', ml: 5 }}>{touched.country && errors.country}</FormHelperText>
         </Grid>
         <Grid item xs={12} sx={{ mb: 4 }}>
           <TextField

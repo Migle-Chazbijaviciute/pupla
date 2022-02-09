@@ -8,9 +8,9 @@ const getUsers = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { email, name, surname } = req.body;
+  const { email, name, surname, phoneNumber, country, address, city, zipcode } = req.body;
 
-  const expectedProps = { email, name, surname };
+  const expectedProps = { email, name, surname, phoneNumber, country, address, city, zipcode };
   const props = Object.entries(expectedProps)
     .reduce((result, [name, value]) => {
       if (value !== undefined) {

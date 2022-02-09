@@ -236,36 +236,25 @@ const countries = [
   { value: 'ZW', title: 'Zimbabwe' },
 ];
 
-const CountrySelect = () => {
-  const [country, setCountry] = React.useState('');
-  const handleChange = (e) => {
-    setCountry(e.target.value);
-  };
-
-  return (
-    <FormControl
-      fullWidth
+const CountrySelect = ({ ...props }) => (
+  <FormControl fullWidth>
+    <InputLabel id="country">Select Country</InputLabel>
+    <Select
+      labelId="country"
+      label="Select Country"
+      MenuProps={{ sx: { height: 300 } }}
+      {...props}
     >
-      <InputLabel id="country">Country</InputLabel>
-      <Select
-        labelId="country"
-        id="country"
-        value={country}
-        label="Country"
-        onChange={handleChange}
-        MenuProps={{ sx: { height: 300 } }}
-      >
-        {countries.map(({ value, title }) => (
-          <MenuItem
-            key={uuidv4()}
-            value={value}
-          >
-            {title}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  );
-};
+      {countries.map(({ value, title }) => (
+        <MenuItem
+          key={uuidv4()}
+          value={value}
+        >
+          {title}
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+);
 
 export default CountrySelect;
