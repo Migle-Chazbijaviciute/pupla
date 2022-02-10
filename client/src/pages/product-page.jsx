@@ -3,7 +3,7 @@ import {
   Box, Typography, useTheme, styled, Grid, InputLabel, MenuItem, FormControl, Select, Button,
 } from '@mui/material';
 import StyledHeader from '../components/styled-components/main-header';
-import ImageSlider from '../components/limited-edition-slider';
+import ImageSlider from '../components/image-slider';
 
 const ProductPage = () => {
   const theme = useTheme();

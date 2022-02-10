@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import StyledHeader from '../../components/styled-components/main-header';
-import ImageSlider from '../../components/limited-edition-slider';
+import ImageSlider from '../../components/image-slider';
 
 const HomeCarousel = () => {
   const theme = useTheme();
