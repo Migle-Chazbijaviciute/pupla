@@ -5,7 +5,7 @@ require('dotenv').config();
 const cors = require('cors');
 const authRouter = require('./routes/auth-router');
 const userRouter = require('./routes/user-router');
-const typeRouter = require('./routes/type-router');
+const categoryRouter = require('./routes/category-router');
 const sizeRouter = require('./routes/size-router');
 const colorRouter = require('./routes/color-router');
 
@@ -25,7 +25,7 @@ server.use(express.json());
 
 // Response handlers
 server.use('/api/auth', authRouter);
-server.use('/api/types', typeRouter);
+server.use('/api/categories', categoryRouter);
 server.use('/api/sizes', sizeRouter);
 server.use('/api/colors', colorRouter);
 server.use('/api/users', userRouter);
