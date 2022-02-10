@@ -1,7 +1,7 @@
 const Mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const typeSchema = new Mongoose.Schema({
+const categorySchema = new Mongoose.Schema({
   title: {
     type: 'string',
     required: true,
@@ -11,8 +11,8 @@ const typeSchema = new Mongoose.Schema({
   timestamps: true,
 });
 
-typeSchema.plugin(uniqueValidator);
+categorySchema.plugin(uniqueValidator);
 
-const TypeModel = Mongoose.model('Type', typeSchema);
+const CategoryModel = Mongoose.model('Category', categorySchema);
 
-module.exports = TypeModel;
+module.exports = CategoryModel;

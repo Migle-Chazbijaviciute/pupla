@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
+  console.log(authorizationHeader);
   if (!authorizationHeader) res.status(403).json({ message: 'Authorization needed' });
 
   const token = authorizationHeader && authorizationHeader.split(' ')[1];
