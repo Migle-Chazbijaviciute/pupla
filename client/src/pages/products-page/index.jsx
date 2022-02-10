@@ -1,26 +1,16 @@
 import React from 'react';
 import {
   Box,
-  Typography,
   useTheme,
   styled,
 } from '@mui/material';
 import ProductsDrawer from './products-drawer';
 import ProductsGrid from './products-grid';
 import ProductsSort from './products-sort';
+import StyledHeader from '../../components/styled-components/main-header';
 
 const ProductsPage = () => {
   const theme = useTheme();
-
-  const StyledHeader = styled(Typography)({
-    color: theme.palette.secondary.dark,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    fontSize: '2em',
-    textDecoration: 'none',
-    marginBottom: 20,
-    marginTop: 20,
-  });
 
   const StyledActions = styled(Box)({
     backgroundColor: theme.palette.secondary.main,

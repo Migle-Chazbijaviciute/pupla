@@ -2,23 +2,13 @@ import React from 'react';
 import {
   Box, Typography, useTheme, styled,
 } from '@mui/material';
+import StyledHeader from '../components/styled-components/main-header';
 
 const ContactUsPage = () => {
   const theme = useTheme();
 
-  const StyledHeader = styled(Typography)({
-    color: theme.palette.secondary.dark,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    fontSize: '2em',
-    textDecoration: 'none',
-    marginBottom: 50,
-    marginTop: 20,
-  });
-
   const StyledInfo = styled(Typography)({
     color: theme.palette.primary.dark,
-    // textTransform: 'uppercase',
     fontSize: '1.05rem',
     marginBottom: 20,
   });

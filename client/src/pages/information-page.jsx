@@ -2,19 +2,10 @@ import {
   Box, Typography, useTheme, styled,
 } from '@mui/material';
 import React from 'react';
+import StyledHeader from '../components/styled-components/main-header';
 
 const InformationPage = () => {
   const theme = useTheme();
-
-  const StyledHeader = styled(Typography)({
-    color: theme.palette.secondary.dark,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    fontSize: '2em',
-    textDecoration: 'none',
-    marginBottom: 20,
-    marginTop: 20,
-  });
 
   const StyledIntro = styled(Typography)({
     color: theme.palette.primary.dark,

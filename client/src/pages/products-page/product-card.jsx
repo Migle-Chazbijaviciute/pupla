@@ -35,7 +35,6 @@ const ProductCard = ({
           width="100%"
           alt={title}
           loading="lazy"
-          height="90%"
         />
       </Link>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mx: 4 }}>
