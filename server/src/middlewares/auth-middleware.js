@@ -2,11 +2,16 @@ const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
-  console.log(authorizationHeader);
-  if (!authorizationHeader) res.status(403).json({ message: 'Authorization needed' });
+  if (!authorizationHeader) {
+    res.status(403).json({ message: 'Authorization needed' });
+    return;
+  }
 
   const token = authorizationHeader && authorizationHeader.split(' ')[1];
-  if (!token) res.status(400).json({ message: 'Bad authorization data' });
+  if (!token) {
+    res.status(400).json({ message: 'Bad authorization data' });
+    return;
+  };
 
   try {
     const decodedUser = jwt.verify(token, process.env.TOKEN_SECRET);
