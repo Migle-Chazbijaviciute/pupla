@@ -17,7 +17,7 @@ const createColor = async (req, res) => {
   try {
     await colorDoc.save();
     const color = new ColorViewModel(colorDoc);
-    res.status(400).json(color);
+    res.status(200).json(color);
   } catch (error) {
     console.log(error)
     res.status(400).json({

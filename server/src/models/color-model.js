@@ -1,7 +1,7 @@
-const Mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const colorSchema = new Mongoose.Schema({
+const colorSchema = new mongoose.Schema({
   title: {
     type: 'string',
     required: true,
@@ -13,6 +13,6 @@ const colorSchema = new Mongoose.Schema({
 
 colorSchema.plugin(uniqueValidator);
 
-const ColorModel = Mongoose.model('Color', colorSchema);
+const ColorModel = mongoose.model('Color', colorSchema);
 
 module.exports = ColorModel;
