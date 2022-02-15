@@ -11,6 +11,7 @@ const routes = {
   ProfilePage: '/profile',
   BagPage: '/bag',
   AdminPage: '/admin',
+  AddProduct: '/add-product',
 };
 
 export default routes;

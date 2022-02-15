@@ -60,7 +60,7 @@ const Products = ({ ...props }) => (
       />
     </Box>
     <Button variant="contained" fullWidth>DELETE SELECTED PRODUCTS</Button>
-    <Button variant="contained" fullWidth sx={{ my: 5 }}>ADD NEW PRODUCT</Button>
+    <Button variant="contained" fullWidth sx={{ my: 5 }} href="/add-product">ADD NEW PRODUCT</Button>
   </Box>
 );
 

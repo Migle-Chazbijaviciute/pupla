@@ -4,15 +4,12 @@ import {
   Grid,
   styled,
   useTheme,
+  Button,
 } from '@mui/material';
 import StyledHeader from '../../../components/styled-components/main-header';
-import Products from './products';
-import Categories from './categories';
-import Sizes from './sizes';
-import Colors from './colors';
-import Users from './user';
+import ProductDescription from './product-description';
 
-const AdminPage = () => {
+const AddProduct = () => {
   const theme = useTheme();
 
   const StyledGridContainer = styled(Grid)({
@@ -41,26 +38,20 @@ const AdminPage = () => {
         alignItems: 'center',
       }}
     >
-      <StyledHeader>Admin Page</StyledHeader>
+      <StyledHeader>add product</StyledHeader>
       <StyledGridContainer container>
-        <Grid item xs={12}>
-          <Products />
+        <Grid item xs={12} md={4}>
+          <ProductDescription />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Categories />
+        <Grid item xs={12} md={8}>
+          <Box fullWidth sx={{ height: 600, backgroundColor: 'red' }}>
+            Nuotraukos
+          </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Colors />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Sizes />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Users />
-        </Grid>
+        <Button variant="contained" fullWidth>ADD NEW PRODUCT NOW</Button>
       </StyledGridContainer>
     </Box>
   );
 };
 
-export default AdminPage;
+export default AddProduct;

@@ -8,20 +8,16 @@ import StyledHeader from '../../../components/styled-components/main-header';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'category', headerName: 'Category', width: 150 },
+  { field: 'size', headerName: 'Size', width: 150 },
 ];
 
 const rows = [
-  { id: 1, category: 'Dress' },
-  { id: 2, category: 'Bress' },
-  { id: 3, category: 'Aress' },
-  { id: 4, category: 'Cress' },
-  { id: 5, category: 'Gress' },
-  { id: 6, category: 'Hress' },
-  { id: 7, category: 'Jress' },
+  { id: 1, size: 'S' },
+  { id: 2, size: 'M' },
+  { id: 3, size: 'L' },
 ];
 
-const Categories = ({ ...props }) => (
+const Sizes = ({ ...props }) => (
   <Box sx={{
     display: { xs: 'block', sm: 'flex' },
     flexDirection: 'column',
@@ -30,7 +26,7 @@ const Categories = ({ ...props }) => (
     ...props,
   }}
   >
-    <StyledHeader>categories</StyledHeader>
+    <StyledHeader>sizes</StyledHeader>
     <Box style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
@@ -40,8 +36,8 @@ const Categories = ({ ...props }) => (
         checkboxSelection
       />
     </Box>
-    <Button variant="contained" fullWidth>DELETE SELECTED CATEGORIES</Button>
+    <Button variant="contained" fullWidth>DELETE SELECTED SIZES</Button>
   </Box>
 );
 
-export default Categories;
+export default Sizes;

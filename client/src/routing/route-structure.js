@@ -28,6 +28,7 @@ const routeStructure = [
       { path: 'login', pageName: 'LoginPage', auth: PUBLIC_ONLY },
       { path: 'register', pageName: 'RegisterPage', auth: PUBLIC_ONLY },
       { path: 'admin', pageName: 'AdminPage', auth: ADMIN },
+      { path: 'add-product', pageName: 'AddProduct', auth: ADMIN },
     ],
   },
 ];

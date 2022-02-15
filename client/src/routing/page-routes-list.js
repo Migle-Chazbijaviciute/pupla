@@ -15,6 +15,7 @@ import ProfilePage from '../pages/authorized/profile-page';
 import BagPage from '../pages/authorized/user/bag-page';
 // admin
 import AdminPage from '../pages/authorized/admin/admin-page';
+import AddProduct from '../pages/authorized/admin/add-product';
 // layouts
 import NavLayout from '../components/layouts/nav-layout';
 import NoNavLayout from '../components/layouts/no-nav-layout';
@@ -34,4 +35,5 @@ export default {
   InformationPage,
   ContactUsPage,
   AdminPage,
+  AddProduct,
 };
