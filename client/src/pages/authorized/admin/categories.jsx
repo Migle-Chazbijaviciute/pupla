@@ -7,21 +7,11 @@ import { DataGrid } from '@mui/x-data-grid';
 import StyledHeader from '../../../components/styled-components/main-header';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'category', headerName: 'Category', width: 150 },
+  { field: 'id', headerName: 'ID', width: 250 },
+  { field: 'title', headerName: 'Category', width: 150 },
 ];
 
-const rows = [
-  { id: 1, category: 'Dress' },
-  { id: 2, category: 'Bress' },
-  { id: 3, category: 'Aress' },
-  { id: 4, category: 'Cress' },
-  { id: 5, category: 'Gress' },
-  { id: 6, category: 'Hress' },
-  { id: 7, category: 'Jress' },
-];
-
-const Categories = ({ ...props }) => (
+const Categories = ({ data, ...props }) => (
   <Box sx={{
     display: { xs: 'block', sm: 'flex' },
     flexDirection: 'column',
@@ -33,7 +23,7 @@ const Categories = ({ ...props }) => (
     <StyledHeader>categories</StyledHeader>
     <Box style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={data}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

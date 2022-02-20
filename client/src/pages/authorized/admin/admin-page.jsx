@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Grid,
-  styled,
-  useTheme,
 } from '@mui/material';
+import API from '../../../services/api-service';
 import StyledHeader from '../../../components/styled-components/main-header';
+import StyledGridContainer from '../../../components/styled-components/grid-container';
 import Products from './products';
 import Categories from './categories';
 import Sizes from './sizes';
@@ -13,25 +13,26 @@ import Colors from './colors';
 import Users from './user';
 
 const AdminPage = () => {
-  const theme = useTheme();
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [garments, setGarments] = useState([]);
+  const [fetchedUsers, setUsers] = useState([]);
 
-  const StyledGridContainer = styled(Grid)({
-    backgroundColor: theme.palette.secondary.main,
-    '.MuiGrid-root.MuiGrid-item': {
-      paddingTop: 0,
-      paddingLeft: 0,
-      padding: 8,
-    },
-    [theme.breakpoints.up('xs')]: {
-      paddingInline: 30,
-      marginBottom: 10,
-      paddingBlock: 10,
-    },
-    [theme.breakpoints.up('md')]: {
-      paddingBlock: 10,
-      marginBottom: 25,
-    },
-  });
+  useEffect(() => {
+    (async () => {
+      const { color } = await API.getColors();
+      const { size } = await API.getSizes();
+      const { category } = await API.getCategories();
+      const { garment } = await API.getGarments();
+      const { users } = await API.getUsers();
+      setColors(color);
+      setSizes(size);
+      setCategories(category);
+      setGarments(garment);
+      setUsers(users);
+    })();
+  }, []);
 
   return (
     <Box
@@ -44,19 +45,19 @@ const AdminPage = () => {
       <StyledHeader>Admin Page</StyledHeader>
       <StyledGridContainer container>
         <Grid item xs={12}>
-          <Products />
+          <Products data={garments} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Categories />
+          <Categories data={categories} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Colors />
+          <Colors data={colors} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Sizes />
+          <Sizes data={sizes} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Users />
+          <Users data={fetchedUsers} />
         </Grid>
       </StyledGridContainer>
     </Box>
