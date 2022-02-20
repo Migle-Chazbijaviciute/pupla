@@ -12,9 +12,9 @@ const getGarments = async (req, res) => {
 };
 
 const createGarment = async (req, res) => {
-  const { label, color, category, price, sizes, limitedEdition, inStock } = req.body;
+  const { label, color, category, price, sizes, images, limitedEdition, inStock } = req.body;
   const garmentDocs = await GarmentModel({
-    label, color, category, price, sizes, limitedEdition, inStock
+    label, color, category, price, sizes, images, limitedEdition, inStock
   });
 
   try {
