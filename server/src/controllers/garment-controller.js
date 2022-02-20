@@ -5,7 +5,8 @@ const getGarments = async (req, res) => {
   const garmentDocs = await GarmentModel.find()
     .populate('color')
     .populate('category')
-    .populate('sizes');
+    .populate('sizes')
+    .populate('images');
   const garment = garmentDocs.map(garment => new GarmentViewModel(garment))
   res.status(200).json({ garment: garment })
 };
@@ -34,7 +35,8 @@ const getGarment = async (req, res) => {
     const garmentDocs = await GarmentModel.findById(id)
       .populate('color')
       .populate('category')
-      .populate('sizes');
+      .populate('sizes')
+      .populate('images');
     const garment = new GarmentViewModel(garmentDocs);
     res.status(200).json(garment);
   } catch (error) {
@@ -50,7 +52,8 @@ const deleteGarment = async (req, res) => {
     const garmentDocs = await GarmentModel.findByIdAndDelete(id)
       .populate('color')
       .populate('category')
-      .populate('sizes');
+      .populate('sizes')
+      .populate('images');
     const garment = new GarmentViewModel(garmentDocs);
     res.status(200).json(garment);
   } catch (error) {
@@ -67,7 +70,8 @@ const updateGarment = async (req, res) => {
     await GarmentModel.findById(id)
       .populate('color')
       .populate('category')
-      .populate('sizes');
+      .populate('sizes')
+      .populate('images');
     try {
       const garmentDocs = await GarmentModel.findByIdAndUpdate(
         id,

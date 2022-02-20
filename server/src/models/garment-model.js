@@ -26,6 +26,11 @@ const garmentSchema = new mongoose.Schema({
     ref: 'Size',
     required: true,
   }],
+  images: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Image',
+    required: true,
+  }],
   limitedEdition: {
     type: 'boolean',
     required: true,
