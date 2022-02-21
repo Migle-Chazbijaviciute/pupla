@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { dataFetchError } from '../helpers/data-fetch-error-helper';
-import AuthService from './auth-service';
+import SessionService from './session-service';
 
 const instance = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -37,7 +37,8 @@ const getCategories = async () => {
 };
 
 const validateToken = () => {
-  const token = AuthService.getToken();
+  const token = SessionService.get('auth_token');
+
   if (!token) {
     throw new Error('Not authentificated');
   }
@@ -86,6 +87,17 @@ const getGarment = async (id) => {
   }
 };
 
+const getLimitedGarmentsImages = async () => {
+  try {
+    const { garment } = await getGarments();
+    const filtered = garment.filter(({ limitedEdition }) => limitedEdition === true);
+    const limitedImages = filtered.map((x) => x.images);
+    return limitedImages;
+  } catch (error) {
+    return dataFetchError(error);
+  }
+};
+
 const API = {
   getColors,
   getSizes,
@@ -94,6 +106,7 @@ const API = {
   getImages,
   getGarments,
   getGarment,
+  getLimitedGarmentsImages,
 };
 
 export default API;
