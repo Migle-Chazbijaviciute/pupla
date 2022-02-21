@@ -17,7 +17,7 @@ const createSize = async (req, res) => {
   try {
     await sizeDoc.save();
     const size = new SizeViewModel(sizeDoc);
-    res.status(400).json(size);
+    res.status(200).json(size);
   } catch (error) {
     console.log(error)
     res.status(400).json({
