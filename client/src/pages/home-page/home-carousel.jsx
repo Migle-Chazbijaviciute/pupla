@@ -7,7 +7,7 @@ import { useTheme } from '@emotion/react';
 import StyledHeader from '../../components/styled-components/main-header';
 import ImageSlider from '../../components/image-slider';
 
-const HomeCarousel = () => {
+const HomeCarousel = ({ limitedImages }) => {
   const theme = useTheme();
 
   const ImagesBox = styled(Box)({
@@ -30,28 +30,6 @@ const HomeCarousel = () => {
       width: '70%',
     },
   });
-  const limited = [
-    {
-      img: '/static/stock/blackSet1.jpg',
-      title: 'limited1',
-      price: 50,
-    },
-    {
-      img: 'static/stock/blackSet2.jpg',
-      title: 'limited2',
-      price: 50,
-    },
-    {
-      img: 'static/stock/redDress1.jpg',
-      title: 'limited1',
-      price: 50,
-    },
-    {
-      img: 'static/stock/redDress2.jpg',
-      title: 'limited2',
-      price: 50,
-    },
-  ];
 
   return (
     <Box sx={{
@@ -65,7 +43,7 @@ const HomeCarousel = () => {
     >
       <StyledHeader>limited edition</StyledHeader>
       <ImagesBox>
-        <ImageSlider sliderData={limited} />
+        <ImageSlider sliderData={limitedImages} />
       </ImagesBox>
     </Box>
   );
