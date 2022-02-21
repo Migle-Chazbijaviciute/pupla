@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   useTheme,
@@ -8,9 +8,18 @@ import ProductsDrawer from './products-drawer';
 import ProductsGrid from './products-grid';
 import ProductsSort from './products-sort';
 import StyledHeader from '../../components/styled-components/main-header';
+import API from '../../services/api-service';
 
 const ProductsPage = () => {
   const theme = useTheme();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const { garment } = await API.getGarments();
+      setProducts(garment);
+    })();
+  }, []);
 
   const StyledActions = styled(Box)({
     backgroundColor: theme.palette.secondary.main,
@@ -38,7 +47,7 @@ const ProductsPage = () => {
           <ProductsDrawer />
         </Box>
       </StyledActions>
-      <ProductsGrid />
+      <ProductsGrid data={products} />
     </Box>
   );
 };
