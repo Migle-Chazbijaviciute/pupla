@@ -13,24 +13,34 @@ import Colors from './colors';
 import Users from './user';
 
 const AdminPage = () => {
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [garments, setGarments] = useState([]);
-  const [fetchedUsers, setUsers] = useState([]);
+  const [state, setState] = useState({
+    fetchedColors: [],
+    fetchedSizes: [],
+    fetchedCategories: [],
+    fetchedGarments: [],
+    fetchedUsers: [],
+  });
+  const {
+    fetchedColors, fetchedSizes, fetchedCategories, fetchedGarments, fetchedUsers,
+  } = state;
 
   useEffect(() => {
     (async () => {
-      const { color } = await API.getColors();
-      const { size } = await API.getSizes();
-      const { category } = await API.getCategories();
-      const { garment } = await API.getGarments();
-      const { users } = await API.getUsers();
-      setColors(color);
-      setSizes(size);
-      setCategories(category);
-      setGarments(garment);
-      setUsers(users);
+      const [{ color }, { size }, { category }, { garment }, { users }] = await Promise.all([
+        API.getColors(),
+        API.getSizes(),
+        API.getCategories(),
+        API.getGarments(),
+        API.getUsers(),
+      ]);
+
+      setState({
+        fetchedColors: color,
+        fetchedSizes: size,
+        fetchedCategories: category,
+        fetchedGarments: garment,
+        fetchedUsers: users,
+      });
     })();
   }, []);
 
@@ -45,16 +55,16 @@ const AdminPage = () => {
       <StyledHeader>Admin Page</StyledHeader>
       <StyledGridContainer container>
         <Grid item xs={12}>
-          <Products data={garments} />
+          <Products data={fetchedGarments} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Categories data={categories} />
+          <Categories data={fetchedCategories} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Colors data={colors} />
+          <Colors data={fetchedColors} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Sizes data={sizes} />
+          <Sizes data={fetchedSizes} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Users data={fetchedUsers} />
