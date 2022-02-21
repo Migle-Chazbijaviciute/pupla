@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import {
   Box,
   Grid,
@@ -16,7 +15,7 @@ import Favorite from '@mui/icons-material/Favorite';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const ProductCard = ({
-  img, title, price, shouldAddButton, deleteIcon,
+  id, img, title, price, shouldAddButton, deleteIcon,
 }) => {
   const theme = useTheme();
 
@@ -27,10 +26,10 @@ const ProductCard = ({
   });
 
   return (
-    <Grid item key={uuidv4()} xs={12} sm={6} md={4} xl={3} sx={{ position: 'relative' }}>
-      <Link href="/product/1">
+    <Grid item key={id} xs={12} sm={6} md={4} xl={3} sx={{ position: 'relative' }}>
+      <Link href={`/product/${id}`}>
         <Box
-          src={img}
+          src={img[2].src}
           component="img"
           width="100%"
           alt={title}

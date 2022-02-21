@@ -77,6 +77,15 @@ const getGarments = async () => {
   }
 };
 
+const getGarment = async (id) => {
+  try {
+    const response = await instance.get(`/garments/${id}`);
+    return response.data;
+  } catch (error) {
+    return dataFetchError(error);
+  }
+};
+
 const API = {
   getColors,
   getSizes,
@@ -84,6 +93,7 @@ const API = {
   getUsers,
   getImages,
   getGarments,
+  getGarment,
 };
 
 export default API;

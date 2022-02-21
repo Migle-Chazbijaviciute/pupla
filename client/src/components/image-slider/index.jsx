@@ -4,7 +4,6 @@ import {
   Link,
 } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
-import { v4 as uuidv4 } from 'uuid';
 import routes from '../../routing/routes';
 
 const ImageSlider = ({ sliderData }) => (
@@ -17,8 +16,8 @@ const ImageSlider = ({ sliderData }) => (
     interval={3000}
   >
     {
-          sliderData.map(({ img, title }) => (
-            <Box key={uuidv4()} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          sliderData.map(({ id, src }) => (
+            <Box key={id} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Link href={routes.ProductPage}>
                 <Box
                   component="img"
@@ -27,8 +26,8 @@ const ImageSlider = ({ sliderData }) => (
                     height: { xs: 500 },
                     objectFit: 'contain',
                   }}
-                  alt={title}
-                  src={img}
+                  alt={src}
+                  src={src}
                 />
               </Link>
             </Box>
@@ -36,5 +35,4 @@ const ImageSlider = ({ sliderData }) => (
         }
   </Carousel>
 );
-
 export default ImageSlider;

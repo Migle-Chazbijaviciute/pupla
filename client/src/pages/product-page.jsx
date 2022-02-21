@@ -1,25 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
-  Box, Typography, useTheme, styled, Grid, InputLabel, MenuItem, FormControl, Select, Button,
+  Box,
+  Typography,
+  useTheme,
+  styled,
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
 } from '@mui/material';
+import API from '../services/api-service';
 import StyledHeader from '../components/styled-components/main-header';
 import ImageSlider from '../components/image-slider';
 
 const ProductPage = () => {
   const theme = useTheme();
+  const [item, setItem] = useState(null);
+  const { id } = useParams();
 
-  const images = [
-    {
-      img: '/static/stock/blackSet1.jpg',
-      title: 'limited1',
-      price: 50,
-    },
-    {
-      img: '/static/stock/blackSet2.jpg',
-      title: 'limited2',
-      price: 50,
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      const data = await API.getGarment(id);
+      setItem(data);
+    })();
+  }, [id]);
 
   const StyledInfo = styled(Typography)({
     color: theme.palette.primary.dark,
@@ -52,11 +59,13 @@ const ProductPage = () => {
     },
   });
 
-  const [size, setSize] = React.useState('');
+  const [size, setSize] = useState('');
 
   const handleChange = (event) => {
     setSize(event.target.value);
   };
+
+  if (!item) return null;
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -69,12 +78,15 @@ const ProductPage = () => {
             paddingRight: { md: 20 },
           }}
         >
-          <ImageSlider sliderData={images} width="100%" />
+          <ImageSlider sliderData={item.images} width="100%" />
         </Grid>
         <Grid item xs={12} md={6}>
           <Box>
-            <StyledHeader fontSize="2rem" textAlign="left">{images[0].title}</StyledHeader>
-            <StyledHeader fontSize="1.5rem" textAlign="left">250 €</StyledHeader>
+            <StyledHeader fontSize="2rem" textAlign="left">{item.label}</StyledHeader>
+            <StyledHeader fontSize="1.5rem" textAlign="left">
+              {item.price}
+              €
+            </StyledHeader>
             <StyledInfo>Model 1.78m is wearing size M</StyledInfo>
             <FormControl fullWidth sx={{ mt: 12, mb: 10, width: { md: 300 } }}>
               <InputLabel id="size">Size</InputLabel>
@@ -85,9 +97,11 @@ const ProductPage = () => {
                 label="Size"
                 onChange={handleChange}
               >
-                <MenuItem value="s">S (EU-36)</MenuItem>
-                <MenuItem value="m">M (EU-38)</MenuItem>
-                <MenuItem value="l">L (EU-40)</MenuItem>
+                {
+                item.sizes.map((x) => (
+                  <MenuItem key={x.id} value={x.title}>{x.title}</MenuItem>
+                ))
+                }
               </Select>
             </FormControl>
             <Button variant="contained" color="secondary" fullWidth sx={{ display: 'block', mb: 5, width: { md: 300 } }}>Add to Cart</Button>
