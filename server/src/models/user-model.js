@@ -55,9 +55,12 @@ const userSchema = new Mongoose.Schema({
     type: 'string',
     required: true,
   },
-  saved: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    ref: 'Garment',
+  bagItems: [{
+    garment: {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'Garment',
+    },
+    amount: 'number'
   }]
 }, {
   timestamps: true,
