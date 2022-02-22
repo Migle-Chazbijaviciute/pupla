@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import routes from '../../../routing/routes';
 
 const ToggleMenu = () => {
   const theme = useTheme();
@@ -19,10 +20,12 @@ const ToggleMenu = () => {
   const handleCloseMenu = () => setMenuOpen(false);
 
   const pages = [
-    { title: 'HOME', link: '/' },
-    { title: 'PRODUCTS', link: '/products' },
-    { title: 'INFORMATION', link: '/information' },
-    { title: 'CONTACT US', link: '/contactUs' },
+    { title: 'HOME', link: routes.HomePage },
+    { title: 'PRODUCTS', link: routes.ProductsPage },
+    { title: 'INFORMATION', link: routes.InformationPage },
+    { title: 'CONTACT US', link: routes.ContactUsPage },
+    { title: 'MY BAG', link: routes.BagPage },
+    { title: 'SAVED ITEMS', link: routes.SavedPage },
   ];
 
   const StyledLink = styled(NavLink)({
@@ -59,7 +62,7 @@ const ToggleMenu = () => {
         }}
       >
         {pages.map(({ title, link }) => (
-          <MenuItem onClick={handleCloseMenu} key={link}>
+          <MenuItem onClick={handleCloseMenu} key={title}>
             <StyledLink to={link}>
               <Typography textAlign="center">{title}</Typography>
             </StyledLink>
