@@ -1,5 +1,4 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -8,14 +7,32 @@ import {
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Drawer,
   Checkbox,
+  Drawer,
   IconButton,
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import API from '../../services/api-service';
 
 const ProductsDrawer = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [filters, setFilters] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const [{ color }, { size }, { category }] = await Promise.all([
+        API.getColors(),
+        API.getSizes(),
+        API.getCategories(),
+      ]);
+
+      setFilters([
+        { filterName: 'Color', options: color },
+        { filterName: 'Size', options: size },
+        { filterName: 'Category', options: category },
+      ]);
+    })();
+  }, []);
 
   const StyledDrawer = styled(Drawer)({
     '.MuiDrawer-paper': {
@@ -23,37 +40,10 @@ const ProductsDrawer = () => {
     },
   });
 
-  const filters = [
-    {
-      title: 'Color',
-      options: [
-        { name: 'Black' },
-        { name: 'White' },
-        { name: 'Grey' },
-        { name: 'Nude' },
-      ],
-    },
-    {
-      title: 'Type',
-      options: [
-        { name: 'Shirt' },
-        { name: 'Dress' },
-        { name: 'Hoodie' },
-      ],
-    },
-    {
-      title: 'Size',
-      options: [
-        { name: 'S' },
-        { name: 'M' },
-        { name: 'L' },
-      ],
-    },
-  ];
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  if (!filters) return null;
 
   return (
     <Box>
@@ -68,16 +58,15 @@ const ProductsDrawer = () => {
       >
         <Typography sx={{ textAlign: 'center', mt: 10 }}>CHOOSE FILTERS</Typography>
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-          {filters.map(({ title, options }) => (
-            <Box key={uuidv4()}>
-              <FormLabel component="legend">{title}</FormLabel>
+          {filters.map(({ filterName, options }) => (
+            <Box key={filterName}>
+              <FormLabel component="legend">{filterName}</FormLabel>
               <FormGroup>
-                {options.map(({ name }) => (
+                {options.map(({ id, title }) => (
                   <FormControlLabel
-                    key={uuidv4()}
-                    control={<Checkbox name={name} />}
-                    label={name}
-
+                    key={id}
+                    control={<Checkbox name={title} />}
+                    label={title}
                   />
                 ))}
               </FormGroup>
