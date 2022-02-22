@@ -8,8 +8,11 @@ import {
   Typography,
   Button,
   IconButton,
+  Checkbox,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 const ProductCard = ({
   id, img, title, price, shouldAddButton, deleteIcon,
@@ -54,7 +57,7 @@ const ProductCard = ({
       }
       {
         deleteIcon
-          && (
+          ? (
             <IconButton
               sx={{
                 position: 'absolute', right: 10, top: 10,
@@ -63,6 +66,16 @@ const ProductCard = ({
             >
               <DeleteOutlineIcon />
             </IconButton>
+          )
+          : (
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite />}
+              sx={{
+                position: 'absolute', right: 10, top: 40,
+              }}
+              size="large"
+            />
           )
       }
     </Grid>
