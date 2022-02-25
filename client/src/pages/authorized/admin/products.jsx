@@ -2,52 +2,93 @@ import React from 'react';
 import {
   Box,
   Button,
+  Link,
 } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
 import StyledHeader from '../../../components/styled-components/main-header';
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 220 },
-  { field: 'label', headerName: 'Name', width: 170 },
-  { field: 'categoryTitle', headerName: 'Category', width: 100 },
-  { field: 'colorTitle', headerName: 'Color', width: 100 },
-  {
-    field: 'price', headerName: 'Price', type: 'number', width: 100,
-  },
-];
+import StyledInfo from '../../../components/styled-components/styled-info';
+import API from '../../../services/api-service';
 
 const Products = ({ data, ...props }) => {
-  const rows = data.map(({
-    id, price, label, color, category,
+  const cardData = data.map(({
+    id, price, label, color, category, images,
   }) => ({
     id,
     price,
     label,
     colorTitle: color.title,
     categoryTitle: category.title,
+    img: images[0].src,
   }));
+
+  const handleDelete = async (id) => {
+    await API.deleteGarment(id);
+    window.location.reload();
+  };
 
   return (
     <Box sx={{
-      display: { xs: 'block', sm: 'flex' },
-      flexDirection: 'column',
-      alignItems: 'flex-start',
       justifyContent: 'center',
       ...props,
     }}
     >
       <StyledHeader>products</StyledHeader>
-      <Box style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          disableMultipleSelection
-        />
+      <Box sx={{
+        gap: 20,
+        display: 'flex',
+        flexWrap: 'wrap',
+      }}
+      >
+        {cardData.map(({
+          id, price, label, colorTitle, categoryTitle, img,
+        }) => (
+          <Box
+            key={id}
+            position="relative"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'wrap',
+              boxShadow: 1,
+            }}
+          >
+            <Link href={`/product/${id}`}>
+              <Box
+                src={img}
+                component="img"
+                sx={{
+                  width: 200,
+                  paddingBlock: 5,
+                }}
+                alt={label}
+                loading="lazy"
+              />
+            </Link>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              mx: 3,
+              mb: 5,
+            }}
+            >
+              <StyledInfo sx={{ fontSize: '1rem' }}>{label}</StyledInfo>
+              <StyledInfo sx={{ fontSize: '1rem' }}>{colorTitle}</StyledInfo>
+              <StyledInfo sx={{ fontSize: '1rem' }}>{categoryTitle}</StyledInfo>
+              <StyledInfo sx={{ fontSize: '1rem', fontWeight: 550 }}>
+                {price}
+                €
+              </StyledInfo>
+            </Box>
+            <Box sx={{
+              display: 'flex', flexDirection: 'row', justifyContent: 'space-around', pb: 5,
+            }}
+            >
+              <Button size="small" variant="outlined">UPDATE</Button>
+              <Button size="small" variant="outlined" onClick={() => handleDelete(id)}>DELETE</Button>
+            </Box>
+          </Box>
+        ))}
+        <Button variant="contained" fullWidth sx={{ my: 5 }} href="/add-product">ADD NEW PRODUCT</Button>
       </Box>
-      <Button variant="contained" fullWidth>DELETE SELECTED PRODUCTS</Button>
-      <Button variant="contained" fullWidth sx={{ my: 5 }} href="/add-product">ADD NEW PRODUCT</Button>
     </Box>
   );
 };

@@ -45,14 +45,14 @@ const getSizes = async () => {
 //   }
 // };
 
-// const postSize = async (newValue) => {
-//   try {
-//     const allSizes = await getSizes();
-//     return response.data;
-//   } catch (error) {
-//     return dataFetchError(error);
-//   }
-// };
+const createSize = async ({ title }) => {
+  try {
+    const { size } = await instance.post('/sizes', { title });
+    return size;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
 
 const getCategories = async () => {
   try {
@@ -156,6 +156,7 @@ const getLimitedGarmentsImages = async () => {
 const API = {
   getColors,
   getSizes,
+  createSize,
   // updateSize,
   getCategories,
   getUsers,

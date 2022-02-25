@@ -26,13 +26,13 @@ const validationSchema = yup.object({
     .max(32, 'Most 32 letters'),
   color: yup.string().required('Select color'),
   category: yup.string().required('Select category'),
-  sizes: yup.array().required('Select sizes'),
+  sizes: yup.array().min(2, 'At least two sizes').required('Select sizes'),
   price: yup.string()
     .required('Enter price')
     .matches(/^[0-9]+$/, 'Must be only digits')
     .min(2, 'Must be minimum 2 symbols')
     .max(3, 'Must be maximum 3 symbols'),
-  // TODO reikia validationo kad 3 foto privalo but
+  images: yup.array().min(3, 'Must upload 3 images').max(3, 'Must upload maximum 3 images').required('Select images'),
 });
 
 const initialValues = {
@@ -64,17 +64,19 @@ const ProductDescription = () => {
 
   const onSubmit = async ({
     label, color, category, price, sizes, images, limitedEdition, inStock,
-  }) => {
-    const garment = await API.createGarment({
+  }, { resetForm }) => {
+    await API.createGarment({
       label, color, category, price, sizes, images, limitedEdition, inStock,
     });
-    return garment;
+    resetForm();
+    setImgData([]);
   };
 
   const {
     handleChange,
     handleSubmit,
     handleBlur,
+    setFieldTouched,
     errors,
     touched,
     values,
@@ -97,8 +99,12 @@ const ProductDescription = () => {
 
   const handleImagesLoaded = async () => {
     const input = fileUploadRef.current;
-    const data = await ImageService.uploadImages(input.files);
-    updateImgData(data);
+    if (input.files.length === 3) {
+      const data = await ImageService.uploadImages(input.files);
+      updateImgData(data);
+    } else {
+      setFieldTouched('images', true, true);
+    }
   };
 
   const handleImageDelete = async (id) => {
@@ -217,6 +223,7 @@ const ProductDescription = () => {
               multiple
               onChange={handleImagesLoaded}
             />
+            <FormHelperText sx={{ color: 'red', ml: 5 }}>{touched.images && errors.images}</FormHelperText>
           </Box>
           <Box sx={{ alignItems: 'flex-start' }}>
             {

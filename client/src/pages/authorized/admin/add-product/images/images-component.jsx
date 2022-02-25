@@ -7,7 +7,7 @@ import {
 import ImageService from '../../../../../services/image-service';
 import ImagesGrid from './images-grid';
 
-const ImagesComponent = ({ ...props }) => {
+const ImagesComponent = ({ handleImageDelete, ...props }) => {
   const [imgData, setImgData] = useState([]);
 
   useEffect(() => {
@@ -19,11 +19,6 @@ const ImagesComponent = ({ ...props }) => {
 
   const updateImgData = (newImgData) => {
     setImgData([...imgData, ...newImgData]);
-  };
-
-  const handleImageDelete = async (id) => {
-    await ImageService.deleteImage(id);
-    setImgData(imgData.filter((x) => x.id !== id));
   };
 
   const fileUploadRef = useRef(null);
