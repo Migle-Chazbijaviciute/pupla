@@ -26,6 +26,7 @@ const Products = ({ data, ...props }) => {
     colorTitle: color.title,
     categoryTitle: category.title,
   }));
+
   return (
     <Box sx={{
       display: { xs: 'block', sm: 'flex' },
@@ -42,7 +43,7 @@ const Products = ({ data, ...props }) => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+          disableMultipleSelection
         />
       </Box>
       <Button variant="contained" fullWidth>DELETE SELECTED PRODUCTS</Button>

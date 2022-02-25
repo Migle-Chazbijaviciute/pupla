@@ -27,6 +27,33 @@ const getSizes = async () => {
   }
 };
 
+// const updateSize = async (newValue) => {
+//   try {
+//     const allSizes = await getSizes();
+//     return response.data;
+//   } catch (error) {
+//     return dataFetchError(error);
+//   }
+// };
+
+// const deleteSize = async (newValue) => {
+//   try {
+//     const allSizes = await getSizes();
+//     return response.data;
+//   } catch (error) {
+//     return dataFetchError(error);
+//   }
+// };
+
+// const postSize = async (newValue) => {
+//   try {
+//     const allSizes = await getSizes();
+//     return response.data;
+//   } catch (error) {
+//     return dataFetchError(error);
+//   }
+// };
+
 const getCategories = async () => {
   try {
     const response = await instance.get('/categories');
@@ -87,6 +114,34 @@ const getGarment = async (id) => {
   }
 };
 
+const createGarment = async ({
+  label,
+  color,
+  category,
+  price,
+  sizes,
+  images,
+  limitedEdition,
+  inStock,
+}) => {
+  try {
+    const { garment } = await instance.post('/garments', {
+      label, color, category, price, sizes, images, limitedEdition, inStock,
+    });
+    return garment;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+const deleteGarment = async (id) => {
+  try {
+    await instance.delete(`/garments/${id}`);
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 const getLimitedGarmentsImages = async () => {
   try {
     const { garment } = await getGarments();
@@ -101,12 +156,15 @@ const getLimitedGarmentsImages = async () => {
 const API = {
   getColors,
   getSizes,
+  // updateSize,
   getCategories,
   getUsers,
   getImages,
   getGarments,
   getGarment,
   getLimitedGarmentsImages,
+  createGarment,
+  deleteGarment,
 };
 
 export default API;

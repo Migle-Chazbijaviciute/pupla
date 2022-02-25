@@ -27,7 +27,7 @@ const Colors = ({ data, ...props }) => (
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
+        disableMultipleSelection
       />
     </Box>
     <Button variant="contained" fullWidth>DELETE SELECTED COLORS</Button>
