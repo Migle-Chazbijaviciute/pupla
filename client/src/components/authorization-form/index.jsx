@@ -37,9 +37,14 @@ const AuthForm = ({
         {children}
       </Box>
       <Grid item xs={12} sx={{ mb: 1 }}>
+        {
+        linkTo && linkTitle
+        && (
         <Link to={linkTo}>
           {linkTitle}
         </Link>
+        )
+        }
       </Grid>
     </Box>
   </Container>
