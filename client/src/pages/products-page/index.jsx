@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
-  useTheme,
   styled,
 } from '@mui/material';
 import ProductsDrawer from './products-drawer';
@@ -10,8 +9,16 @@ import ProductsSort from './products-sort';
 import StyledHeader from '../../components/styled-components/main-header';
 import API from '../../services/api-service';
 
+const StyledActions = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+  width: '90%',
+  height: 60,
+  display: 'flex',
+  justifyContent: 'space-between',
+  paddingInline: 38,
+}));
+
 const ProductsPage = () => {
-  const theme = useTheme();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -21,14 +28,7 @@ const ProductsPage = () => {
     })();
   }, []);
 
-  const StyledActions = styled(Box)({
-    backgroundColor: theme.palette.secondary.main,
-    width: '90%',
-    height: 60,
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingInline: 38,
-  });
+  if (products === undefined) return null;
 
   return (
     <Box
