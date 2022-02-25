@@ -32,7 +32,7 @@ const SavedPage = () => {
       <StyledHeader>Saved Items</StyledHeader>
       <StyledGridContainer container maxWidth="90%">
 
-        {saved.length > 0 ? saved.map((item) => (
+        {saved.length > 0 && saved.img !== undefined ? saved.map((item) => (
           <ProductCard key={uuidv4()} {...item} shouldAddButton deleteIcon />
         ))
           : <Box fontSize={22}>THERE IS NO SAVED ITEMS YET...</Box>}

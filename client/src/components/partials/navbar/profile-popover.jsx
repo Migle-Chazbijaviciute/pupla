@@ -5,19 +5,16 @@ import {
   IconButton,
   Box,
   Typography,
-  styled,
-  useTheme,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import routes from '../../../routing/routes';
 import AuthService from '../../../services/auth-service';
 import { authSelector } from '../../../store/auth';
+import StyledLink from '../../styled-components/styled-link';
 
 const ProfilePopover = () => {
   const auth = useSelector(authSelector);
-  const theme = useTheme();
   const anchorRef = useRef();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleOpenMenu = () => setMenuOpen(true);
@@ -26,16 +23,6 @@ const ProfilePopover = () => {
     handleCloseMenu();
     AuthService.logout();
   };
-
-  const StyledLink = styled(NavLink)({
-    color: theme.palette.primary.dark,
-    textTransform: 'uppercase',
-    paddingInline: 5,
-    textDecoration: 'none',
-    '&.active': {
-      textDecoration: 'underline',
-    },
-  });
 
   return (
     <Box>

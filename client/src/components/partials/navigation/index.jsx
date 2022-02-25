@@ -1,47 +1,32 @@
 import React from 'react';
-import {
-  Box, useTheme, styled,
-} from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { Box, styled } from '@mui/material';
+import StyledLink from '../../styled-components/styled-link';
 
-const Navigation = () => {
-  const theme = useTheme();
+const StyledNavBox = styled(Box)(({ theme }) => ({
+  width: '100%',
+  minHeight: theme.mixins.navigation.minHeight,
+  background: theme.palette.primary.light,
+  justifyContent: 'center',
+  alignItems: 'center',
+  px: 24,
+  borderBottom: 'solid 1px ',
+  borderColor: theme.palette.primary.border,
+  [theme.breakpoints.up('xs')]: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('md')]: {
+    display: 'inline-flex',
+    justifyContent: 'space-evenly',
+  },
+}));
 
-  const StyledFont = styled(NavLink)({
-    color: theme.palette.primary.dark,
-    textTransform: 'uppercase',
-    paddingInline: 25,
-    textDecoration: 'none',
-    '&.active': {
-      textDecoration: 'underline',
-    },
-  });
-
-  const StyledNavBox = styled(Box)({
-    width: '100%',
-    minHeight: theme.mixins.navigation.minHeight,
-    background: theme.palette.primary.light,
-    justifyContent: 'center',
-    alignItems: 'center',
-    px: 24,
-    borderBottom: 'solid 1px ',
-    borderColor: theme.palette.primary.border,
-    [theme.breakpoints.up('xs')]: {
-      display: 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'inline-flex',
-      justifyContent: 'space-evenly',
-    },
-  });
-  return (
-    <StyledNavBox>
-      <StyledFont to="/"> home</StyledFont>
-      <StyledFont to="/products"> products</StyledFont>
-      <StyledFont to="/information"> information</StyledFont>
-      <StyledFont to="/contactUs"> contact us</StyledFont>
-    </StyledNavBox>
-  );
-};
+const Navigation = () => (
+  <StyledNavBox>
+    <StyledLink to="/"> home</StyledLink>
+    <StyledLink to="/products"> products</StyledLink>
+    <StyledLink to="/information"> information</StyledLink>
+    <StyledLink to="/contactUs"> contact us</StyledLink>
+  </StyledNavBox>
+);
 
 export default Navigation;

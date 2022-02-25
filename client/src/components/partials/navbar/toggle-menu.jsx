@@ -5,38 +5,25 @@ import {
   IconButton,
   Box,
   Typography,
-  styled,
-  useTheme,
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import routes from '../../../routing/routes';
+import StyledLink from '../../styled-components/styled-link';
+
+const pages = [
+  { title: 'HOME', link: routes.HomePage },
+  { title: 'PRODUCTS', link: routes.ProductsPage },
+  { title: 'INFORMATION', link: routes.InformationPage },
+  { title: 'CONTACT US', link: routes.ContactUsPage },
+  { title: 'MY BAG', link: routes.BagPage },
+  { title: 'SAVED ITEMS', link: routes.SavedPage },
+];
 
 const ToggleMenu = () => {
-  const theme = useTheme();
   const anchorRef = useRef();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleOpenMenu = () => setMenuOpen(true);
   const handleCloseMenu = () => setMenuOpen(false);
-
-  const pages = [
-    { title: 'HOME', link: routes.HomePage },
-    { title: 'PRODUCTS', link: routes.ProductsPage },
-    { title: 'INFORMATION', link: routes.InformationPage },
-    { title: 'CONTACT US', link: routes.ContactUsPage },
-    { title: 'MY BAG', link: routes.BagPage },
-    { title: 'SAVED ITEMS', link: routes.SavedPage },
-  ];
-
-  const StyledLink = styled(NavLink)({
-    color: theme.palette.primary.dark,
-    textTransform: 'uppercase',
-    paddingInline: 5,
-    textDecoration: 'none',
-    '&.active': {
-      textDecoration: 'underline',
-    },
-  });
 
   return (
     <Box>
