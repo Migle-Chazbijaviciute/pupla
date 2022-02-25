@@ -5,7 +5,7 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material';
-import API from '../../../../../services/api-service';
+import API from '../../services/api-service';
 
 const ColorSelect = ({ ...props }) => {
   const [fetchedColors, setFetchedColors] = React.useState();

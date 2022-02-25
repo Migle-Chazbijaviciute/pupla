@@ -5,7 +5,7 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material';
-import API from '../../../../../services/api-service';
+import API from '../../services/api-service';
 
 const CategorySelect = ({ ...props }) => {
   const [fetchedCategories, setFetchedCategories] = React.useState();

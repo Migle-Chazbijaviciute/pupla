@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import AuthService from '../../../services/auth-service';
 import ProfileService from '../../../services/profile-service';
 import { userSelector } from '../../../store/auth';
-import CountrySelect from '../../../components/styled-components/country-select';
+import CountrySelect from '../../../components/select-components/country-select';
 import StyledHeader from '../../../components/styled-components/main-header';
 
 const validationSchema = yup.object({

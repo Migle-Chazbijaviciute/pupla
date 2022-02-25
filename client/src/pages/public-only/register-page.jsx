@@ -14,7 +14,7 @@ import routes from '../../routing/routes';
 import { login } from '../../store/auth';
 import AuthService from '../../services/auth-service';
 import StyledHeader from '../../components/styled-components/main-header';
-import CountrySelect from '../../components/styled-components/country-select';
+import CountrySelect from '../../components/select-components/country-select';
 
 const validationSchema = yup.object({
   name: yup.string()
