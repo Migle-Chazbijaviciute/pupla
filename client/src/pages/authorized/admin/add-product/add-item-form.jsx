@@ -12,10 +12,10 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import API from '../../../../services/api-service';
 import StyledGridContainer from '../../../../components/styled-components/grid-container';
-import ProductFormContainer from './product-form-container';
-import ColorSelect from './select-components/color-select';
-import CategorySelect from './select-components/category-select';
-import SizesSelect from './select-components/sizes-select';
+import ProductFormContainer from '../../../../components/styled-components/product-form-container';
+import ColorSelect from '../../../../components/select-components/color-select';
+import CategorySelect from '../../../../components/select-components/category-select';
+import SizesSelect from '../../../../components/select-components/sizes-select';
 import ImageService from '../../../../services/image-service';
 import ImagesGrid from './images/images-grid';
 
@@ -46,7 +46,7 @@ const initialValues = {
   images: [],
 };
 
-const ProductDescription = () => {
+const AddItemForm = () => {
   const [imgData, setImgData] = useState([]);
 
   // useEffect(() => {
@@ -247,4 +247,4 @@ const ProductDescription = () => {
   );
 };
 
-export default ProductDescription;
+export default AddItemForm;
