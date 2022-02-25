@@ -12,6 +12,7 @@ const routes = {
   BagPage: '/bag',
   AdminPage: '/admin',
   AddProduct: '/add-product',
+  UpdateProduct: '/update-product/:id',
 };
 
 export default routes;

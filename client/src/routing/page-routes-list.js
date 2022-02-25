@@ -16,6 +16,7 @@ import BagPage from '../pages/authorized/user/bag-page';
 // admin
 import AdminPage from '../pages/authorized/admin/admin-page';
 import AddProduct from '../pages/authorized/admin/add-product';
+import UpdateProduct from '../pages/authorized/admin/update-product';
 // layouts
 import NavLayout from '../components/layouts/nav-layout';
 import NoNavLayout from '../components/layouts/no-nav-layout';
@@ -36,4 +37,5 @@ export default {
   ContactUsPage,
   AdminPage,
   AddProduct,
+  UpdateProduct,
 };

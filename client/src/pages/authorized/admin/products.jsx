@@ -82,7 +82,7 @@ const Products = ({ data, ...props }) => {
               display: 'flex', flexDirection: 'row', justifyContent: 'space-around', pb: 5,
             }}
             >
-              <Button size="small" variant="outlined">UPDATE</Button>
+              <Button size="small" variant="outlined" href={`/update-product/${id}`}>UPDATE</Button>
               <Button size="small" variant="outlined" onClick={() => handleDelete(id)}>DELETE</Button>
             </Box>
           </Box>
