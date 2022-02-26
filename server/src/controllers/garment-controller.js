@@ -125,7 +125,9 @@ const deleteGarment = async (req, res) => {
 
 const updateGarment = async (req, res) => {
   const { id } = req.params;
-  const { label } = req.body;
+  console.log(req.params);
+  console.log(req.body);
+  const { label, color, category, price, sizes, inStock, limitedEdition, images } = req.body;
   try {
     await GarmentModel.findById(id)
       .populate('color')
@@ -135,7 +137,7 @@ const updateGarment = async (req, res) => {
     try {
       const garmentDocs = await GarmentModel.findByIdAndUpdate(
         id,
-        { label },
+        { label, color, category, price, sizes, inStock, limitedEdition, images },
         { new: true }
       );
       const garment = new GarmentViewModel(garmentDocs);

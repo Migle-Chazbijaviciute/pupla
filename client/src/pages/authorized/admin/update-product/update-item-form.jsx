@@ -1,4 +1,8 @@
-import React, { useState, /* useEffect, */ useRef } from 'react';
+import React, {
+  useState,
+  useRef,
+  useMemo,
+} from 'react';
 import {
   Box,
   Grid,
@@ -7,10 +11,11 @@ import {
   TextField,
   Checkbox,
   FormHelperText,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
 import API from '../../../../services/api-service';
 import StyledGridContainer from '../../../../components/styled-components/grid-container';
 import ProductFormContainer from '../../../../components/styled-components/product-form-container';
@@ -33,31 +38,32 @@ const validationSchema = yup.object({
     .matches(/^[0-9]+$/, 'Must be only digits')
     .min(2, 'Must be minimum 2 symbols')
     .max(3, 'Must be maximum 3 symbols'),
-  images: yup.array().min(3, 'Must upload 3 images').max(3, 'Must upload maximum 3 images').required('Select images'),
+  images: yup.array().min(3, 'Must upload 3 images').max(3, 'Must upload maximum 3 images'),
 });
 
-const initialValues = {
-  label: '',
-  color: '',
-  category: '',
-  price: '',
-  sizes: [],
-  limitedEdition: false,
-  inStock: true,
-  images: [],
-};
+const UpdateItemForm = ({ ...garmentData }) => {
+  if (garmentData === null) return null;
+  const [open, setOpen] = useState(false);
 
-const UpdateItemForm = () => {
-  const params = useParams();
-  console.log(params.id);
-  const [imgData, setImgData] = useState([]);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const fetchedImgData = await ImageService.getImages();
-  //     setImgData(fetchedImgData);
-  //   })();
-  // }, []);
+  const receivedImgArr = garmentData.images;
+  const initSizesIdsArr = garmentData.sizes.map((x) => x.id);
+  const receivedImgsIds = garmentData.images.map((img) => img.id);
+
+  const initialValues = useMemo(() => ({
+    id: garmentData.id,
+    label: garmentData.label,
+    color: garmentData.color.id,
+    category: garmentData.category.id,
+    price: garmentData.price,
+    sizes: initSizesIdsArr,
+    limitedEdition: garmentData.limitedEdition,
+    inStock: garmentData.inStock,
+    images: receivedImgsIds,
+  }), [garmentData.id]);
 
   const fileUploadRef = useRef(null);
 
@@ -65,9 +71,30 @@ const UpdateItemForm = () => {
     fileUploadRef.current.click();
   };
 
-  const onSubmit = async ({ values }) => {
-    await API.createGarment({ values });
-    // setImgData([]);
+  const onSubmit = async ({
+    id,
+    label,
+    color,
+    category,
+    price,
+    sizes,
+    inStock,
+    limitedEdition,
+    images,
+  }, { resetForm }) => {
+    await API.updateGarment({
+      id,
+      label,
+      color,
+      category,
+      price,
+      sizes,
+      inStock,
+      limitedEdition,
+      images,
+    });
+    setOpen(true);
+    resetForm();
   };
 
   const {
@@ -89,6 +116,8 @@ const UpdateItemForm = () => {
     onSubmit,
   });
 
+  const [imgData, setImgData] = useState(receivedImgArr);
+
   const updateImgData = (newImgData) => {
     const imgId = newImgData.map((img) => img.id);
     setFieldValue('images', imgId);
@@ -105,6 +134,7 @@ const UpdateItemForm = () => {
     }
   };
 
+  // eslint-disable-next-line no-shadow
   const handleImageDelete = async (id) => {
     await ImageService.deleteImage(id);
     setImgData(imgData.filter((x) => x.id !== id));
@@ -221,11 +251,11 @@ const UpdateItemForm = () => {
               multiple
               onChange={handleImagesLoaded}
             />
-            <FormHelperText sx={{ color: 'red', ml: 5 }}>{touched.images && errors.images}</FormHelperText>
+            <FormHelperText sx={{ color: 'red', ml: 5 }}>{errors.images}</FormHelperText>
           </Box>
           <Box sx={{ alignItems: 'flex-start' }}>
             {
-      imgData.length > 0
+      imgData !== undefined && imgData.length > 0
         ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
     }
           </Box>
@@ -233,12 +263,18 @@ const UpdateItemForm = () => {
         <Grid item xs={12}>
           <Button
             type="submit"
-            disabled={!isValid}
             variant="contained"
             fullWidth
           >
-            ADD NEW PRODUCT NOW
+            UPDATE PRODUCT NOW
           </Button>
+          <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+          >
+            <Alert severity="success">Item successfully updated!</Alert>
+          </Snackbar>
         </Grid>
       </StyledGridContainer>
     </ProductFormContainer>

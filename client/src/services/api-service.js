@@ -36,15 +36,6 @@ const getSizes = async () => {
 //   }
 // };
 
-// const deleteSize = async (newValue) => {
-//   try {
-//     const allSizes = await getSizes();
-//     return response.data;
-//   } catch (error) {
-//     return dataFetchError(error);
-//   }
-// };
-
 const createSize = async ({ title }) => {
   try {
     const { size } = await instance.post('/sizes', { title });
@@ -134,6 +125,34 @@ const createGarment = async ({
   }
 };
 
+const updateGarment = async ({
+  id,
+  label,
+  color,
+  category,
+  price,
+  sizes,
+  inStock,
+  limitedEdition,
+  images,
+}) => {
+  try {
+    const response = await instance.patch(`/garments/${id}`, {
+      label,
+      color,
+      category,
+      price,
+      sizes,
+      inStock,
+      limitedEdition,
+      images,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 const deleteGarment = async (id) => {
   try {
     await instance.delete(`/garments/${id}`);
@@ -165,6 +184,7 @@ const API = {
   getGarment,
   getLimitedGarmentsImages,
   createGarment,
+  updateGarment,
   deleteGarment,
 };
 
