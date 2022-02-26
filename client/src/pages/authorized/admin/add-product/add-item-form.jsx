@@ -1,4 +1,4 @@
-import React, { useState, /* useEffect, */ useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Box,
   Grid,
@@ -7,6 +7,8 @@ import {
   TextField,
   Checkbox,
   FormHelperText,
+  Alert,
+  Snackbar,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -48,18 +50,16 @@ const initialValues = {
 
 const AddItemForm = () => {
   const [imgData, setImgData] = useState([]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const fetchedImgData = await ImageService.getImages();
-  //     setImgData(fetchedImgData);
-  //   })();
-  // }, []);
+  const [open, setOpen] = useState(false);
 
   const fileUploadRef = useRef(null);
 
   const handleUploadFiles = () => {
     fileUploadRef.current.click();
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const onSubmit = async ({
@@ -68,6 +68,7 @@ const AddItemForm = () => {
     await API.createGarment({
       label, color, category, price, sizes, images, limitedEdition, inStock,
     });
+    setOpen(true);
     resetForm();
     setImgData([]);
   };
@@ -241,6 +242,13 @@ const AddItemForm = () => {
           >
             ADD NEW PRODUCT NOW
           </Button>
+          <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+          >
+            <Alert severity="success">Item successfully added!</Alert>
+          </Snackbar>
         </Grid>
       </StyledGridContainer>
     </ProductFormContainer>
