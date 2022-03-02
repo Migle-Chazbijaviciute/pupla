@@ -7,8 +7,17 @@ import {
 import StyledHeader from '../../../components/styled-components/main-header';
 import StyledInfo from '../../../components/styled-components/styled-info';
 import API from '../../../services/api-service';
+import Garment from '../../../types/garment';
 
-const Products = ({ data, ...props }) => {
+type ProductsProps = {
+  data: Garment[] | string,
+};
+
+type HandleDelete = (id: string) => Promise<void>;
+
+const Products: React.FC<ProductsProps> = ({ data }) => {
+  if (typeof data === 'string') { return null; }
+
   const cardData = data.map(({
     id, price, label, color, category, images,
   }) => ({
@@ -20,7 +29,7 @@ const Products = ({ data, ...props }) => {
     img: images[0].src,
   }));
 
-  const handleDelete = async (id) => {
+  const handleDelete: HandleDelete = async (id) => {
     await API.deleteGarment(id);
     window.location.reload();
   };
@@ -28,7 +37,6 @@ const Products = ({ data, ...props }) => {
   return (
     <Box sx={{
       justifyContent: 'center',
-      ...props,
     }}
     >
       <StyledHeader>products</StyledHeader>

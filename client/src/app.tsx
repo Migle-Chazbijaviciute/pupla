@@ -5,7 +5,7 @@ import theme from './styles/theme';
 import store from './store';
 import PageRouter from './routing/page-router';
 
-const App = () => (
+const App: React.FC = () => (
   <ReduxProvider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />

@@ -11,8 +11,18 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import StyledInfo from '../../components/styled-components/styled-info';
+import { Image } from '../../types';
 
-const ProductCard = ({
+type ProductCardProps = {
+  id: string;
+  images: Image[];
+  label: string;
+  price: string;
+  shouldAddButton?: boolean;
+  deleteIcon?: boolean;
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({
   id, images, label, price, shouldAddButton, deleteIcon,
 }) => {
   if (images === undefined) return null;
@@ -44,9 +54,9 @@ const ProductCard = ({
       </Box>
       {
         shouldAddButton && (
-        <Button fullWidth variant="outlined" sx={{ mt: 5 }}>
-          MOVE TO BAG
-        </Button>
+          <Button fullWidth variant="outlined" sx={{ mt: 5 }}>
+            MOVE TO BAG
+          </Button>
         )
       }
       {
@@ -68,7 +78,7 @@ const ProductCard = ({
               sx={{
                 position: 'absolute', right: 10, top: 40,
               }}
-              size="large"
+              size="medium"
             />
           )
       }

@@ -9,11 +9,15 @@ import {
   FormControl,
   Select,
   Button,
+  SelectChangeEvent,
 } from '@mui/material';
 import API from '../services/api-service';
 import StyledHeader from '../components/styled-components/main-header';
 import ImageSlider from '../components/image-slider';
 import StyledInfo from '../components/styled-components/styled-info';
+import { Garment } from '../types';
+
+type HandleChange = (event: SelectChangeEvent) => void;
 
 const StyledProductGridContainer = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
@@ -39,20 +43,22 @@ const StyledProductGridContainer = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ProductPage = () => {
-  const [item, setItem] = useState(null);
+const ProductPage: React.FC = () => {
   const { id } = useParams();
+  const [item, setItem] = useState<Garment>();
 
   useEffect(() => {
     (async () => {
+      if (id === undefined) { return null; }
       const data = await API.getGarment(id);
-      setItem(data);
+      if (typeof data === 'string') { return null; }
+      return setItem(data);
     })();
   }, [id]);
 
   const [size, setSize] = useState('');
 
-  const handleChange = (event) => {
+  const handleChange: HandleChange = (event) => {
     setSize(event.target.value);
   };
 
@@ -69,7 +75,7 @@ const ProductPage = () => {
             paddingRight: { md: 20 },
           }}
         >
-          <ImageSlider sliderData={item.images} width="100%" />
+          <ImageSlider sliderData={item.images} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Box>
@@ -89,9 +95,9 @@ const ProductPage = () => {
                 onChange={handleChange}
               >
                 {
-                item.sizes.map((x) => (
-                  <MenuItem key={x.id} value={x.title}>{x.title}</MenuItem>
-                ))
+                  item.sizes.map((x) => (
+                    <MenuItem key={x.id} value={x.title}>{x.title}</MenuItem>
+                  ))
                 }
               </Select>
             </FormControl>

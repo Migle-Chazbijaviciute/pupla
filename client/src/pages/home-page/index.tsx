@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box,
+  styled,
 } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import HomeHero from './home-hero';
 import HomeCarousel from './home-carousel';
 import API from '../../services/api-service';
+import { Image } from '../../types';
 
-const HomePage = () => {
-  const [limitedImages, setLimitedImages] = useState([]);
-  const theme = useTheme();
+export const StyledMainBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: theme.palette.primary.light,
+}));
 
+const HomePage: React.FC = () => {
+  const [limitedImages, setLimitedImages] = useState<Image[]>([]);
   useEffect(() => {
     (async () => {
       const fetchedData = await API.getLimitedGarmentsImages();
-      setLimitedImages(...fetchedData);
+      if (typeof fetchedData !== 'string') {
+        setLimitedImages(fetchedData);
+      }
     })();
   }, []);
 
-  if (!limitedImages) return null;
-
+  if (limitedImages === undefined) return null;
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      background: theme.palette.primary.light,
-    }}
-    >
+    <StyledMainBox>
       <HomeHero />
       <HomeCarousel limitedImages={limitedImages} />
-    </Box>
+    </StyledMainBox>
   );
 };
 export default HomePage;

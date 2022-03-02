@@ -8,7 +8,7 @@ import Navbar from '../partials/navbar';
 import Footer from '../partials/footer';
 import Navigation from '../partials/navigation';
 
-const NavLayout = () => {
+const NavLayout: React.FC = () => {
   const theme = useTheme();
 
   const vh = `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px - ${theme.mixins.navigation.minHeight}px)`;

@@ -7,8 +7,9 @@ import {
   Typography,
   useTheme,
   FormHelperText,
+  TextFieldProps,
 } from '@mui/material';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import AuthService from '../../../services/auth-service';
@@ -16,6 +17,15 @@ import ProfileService from '../../../services/profile-service';
 import { userSelector } from '../../../store/auth';
 import CountrySelect from '../../../components/select-components/country-select';
 import StyledHeader from '../../../components/styled-components/main-header';
+import { UserProfile } from '../../../types';
+
+type InitUser = UserProfile & {
+  emailChecked: boolean,
+  emailAvailable: boolean,
+};
+
+type FormikOnSubmit =
+  (values: InitUser, formikHelpers: FormikHelpers<InitUser>) => void | Promise<void>;
 
 const validationSchema = yup.object({
   name: yup.string()
@@ -63,28 +73,38 @@ const ProfilePage = () => {
   const theme = useTheme();
 
   const initialValues = useMemo(() => ({
-    name: user.name,
-    surname: user.surname,
-    email: user.email,
+    name: user ? user.name : '',
+    surname: user ? user.surname : '',
+    email: user ? user.email : '',
     emailChecked: true,
     emailAvailable: true,
-    phoneNumber: user.phoneNumber,
-    country: user.country,
-    address: user.address,
-    city: user.city,
-    zipcode: user.zipcode,
+    phoneNumber: user ? user.phoneNumber : '',
+    country: user ? user.country : '',
+    address: user ? user.address : '',
+    city: user ? user.city : '',
+    zipcode: user ? user.zipcode : '',
   }), [user]);
 
-  const onSubmit = async (values) => {
-    const body = Object.entries(values)
-      .reduce((oldResult, [name, value]) => {
-        const newResult = { ...oldResult };
-        if (value !== initialValues[name]) {
-          newResult[name] = value;
-        }
-        return newResult;
-      }, {});
-    await ProfileService.updateUserData(body);
+  const onSubmit: FormikOnSubmit = async ({
+    name,
+    surname,
+    email,
+    phoneNumber,
+    country,
+    address,
+    city,
+    zipcode,
+  }) => {
+    await ProfileService.updateUserData({
+      name,
+      surname,
+      email,
+      phoneNumber,
+      country,
+      address,
+      city,
+      zipcode,
+    });
   };
 
   const {
@@ -97,7 +117,7 @@ const ProfilePage = () => {
     enableReinitialize: true,
   });
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange: TextFieldProps['onChange'] = (e) => {
     if (values.emailChecked) {
       setValues({
         ...values,
@@ -110,7 +130,7 @@ const ProfilePage = () => {
     }
   };
 
-  const handleEmailBlur = (e) => {
+  const handleEmailBlur: TextFieldProps['onBlur'] = (e) => {
     if (e.target.value === initialValues.email) {
       setValues({
         ...values,
@@ -217,6 +237,7 @@ const ProfilePage = () => {
             name="country"
             id="country"
             label="Country"
+            type="select"
             fullWidth
             value={values.country}
             onChange={handleChange}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Select,
   MenuItem,
@@ -6,14 +6,17 @@ import {
   FormControl,
 } from '@mui/material';
 import API from '../../services/api-service';
+import { SelectComponentProps, Size } from '../../types';
 
-const SizesSelect = ({ ...props }) => {
-  const [fetchedSizes, setFetchedSizes] = React.useState([]);
+const SizesSelect: React.FC<SelectComponentProps> = ({ ...props }) => {
+  const [fetchedSizes, setFetchedSizes] = useState<Size[]>();
 
   useEffect(() => {
     (async () => {
-      const { size } = await API.getSizes();
-      setFetchedSizes(size);
+      const responseData = await API.getSizes();
+      if (typeof responseData !== 'string') {
+        setFetchedSizes(responseData);
+      }
     })();
   }, []);
 

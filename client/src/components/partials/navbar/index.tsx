@@ -8,7 +8,7 @@ import ProfilePopover from './profile-popover';
 import ToggleMenu from './toggle-menu';
 import routes from '../../../routing/routes';
 
-const Navbar = () => (
+const Navbar: React.FC = () => (
   <Box>
     <AppBar position="static" sx={{ px: 15 }}>
       <Toolbar>

@@ -5,13 +5,13 @@ import {
   Grid,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AuthFormProps from '../../types/auth-form-props';
 
-const AuthForm = ({
+const AuthForm: React.FC<AuthFormProps> = ({
   children,
   linkTo,
   linkTitle,
   onSubmit,
-  // isValid,
 }) => (
   <Container
     maxWidth="xs"
@@ -38,12 +38,12 @@ const AuthForm = ({
       </Box>
       <Grid item xs={12} sx={{ mb: 1 }}>
         {
-        linkTo && linkTitle
-        && (
-        <Link to={linkTo}>
-          {linkTitle}
-        </Link>
-        )
+          linkTo && linkTitle
+          && (
+            <Link to={linkTo}>
+              {linkTitle}
+            </Link>
+          )
         }
       </Grid>
     </Box>

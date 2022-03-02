@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Select,
   MenuItem,
@@ -6,14 +6,17 @@ import {
   FormControl,
 } from '@mui/material';
 import API from '../../services/api-service';
+import { SelectComponentProps, Category } from '../../types';
 
-const CategorySelect = ({ ...props }) => {
-  const [fetchedCategories, setFetchedCategories] = React.useState();
+const CategorySelect: React.FC<SelectComponentProps> = ({ ...props }) => {
+  const [fetchedCategories, setFetchedCategories] = useState<Category[]>();
 
   useEffect(() => {
     (async () => {
-      const { category } = await API.getCategories();
-      setFetchedCategories(category);
+      const response = await API.getCategories();
+      if (typeof response !== 'string') {
+        setFetchedCategories(response);
+      }
     })();
   }, []);
 

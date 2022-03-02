@@ -6,19 +6,21 @@ import { useParams } from 'react-router-dom';
 import API from '../../../../services/api-service';
 import StyledHeader from '../../../../components/styled-components/main-header';
 import UpdateFormComponent from './update-item-form';
+import { Garment } from '../../../../types';
 
-const UpdateProduct = () => {
+const UpdateProduct: React.FC = () => {
   const { id } = useParams();
-  const [garmentData, setData] = useState(null);
+  const [garmentData, setData] = useState<Garment>();
 
   useEffect(() => {
     (async () => {
+      if (id === undefined) { return null; }
       const fetchedData = await API.getGarment(id);
-      setData(fetchedData);
+      if (typeof fetchedData === 'string') { return null; }
+      return setData(fetchedData);
     })();
   }, []);
 
-  if (garmentData === null) return null;
   return (
     <Box
       sx={{
@@ -27,7 +29,9 @@ const UpdateProduct = () => {
       }}
     >
       <StyledHeader>update product</StyledHeader>
-      <UpdateFormComponent {...garmentData} />
+      {garmentData !== undefined
+        ? <UpdateFormComponent {...garmentData} />
+        : null}
     </Box>
   );
 };

@@ -6,9 +6,16 @@ import {
 } from '@mui/material';
 import ImageService from '../../../../../services/image-service';
 import ImagesGrid from './images-grid';
+import { Image } from '../../../../../types';
 
-const ImagesComponent = ({ handleImageDelete, ...props }) => {
-  const [imgData, setImgData] = useState([]);
+type ImagesComponentProps = {
+  handleImageDelete: (id: string) => Promise<void>
+};
+
+export type UpdateImgData = (data: Image[]) => void;
+
+const ImagesComponent: React.FC<ImagesComponentProps> = ({ handleImageDelete }) => {
+  const [imgData, setImgData] = useState<Image[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -17,20 +24,24 @@ const ImagesComponent = ({ handleImageDelete, ...props }) => {
     })();
   }, []);
 
-  const updateImgData = (newImgData) => {
+  const updateImgData: UpdateImgData = (newImgData) => {
     setImgData([...imgData, ...newImgData]);
   };
 
-  const fileUploadRef = useRef(null);
+  const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const handleUploadFiles = () => {
-    fileUploadRef.current.click();
+    if (fileUploadRef && fileUploadRef.current) {
+      fileUploadRef.current.click();
+    }
   };
 
   const handleImagesLoaded = async () => {
     const input = fileUploadRef.current;
-    const data = await ImageService.uploadImages(input.files);
-    updateImgData(data);
+    if (input && input.files) {
+      const data = await ImageService.uploadImages(input.files);
+      updateImgData(data);
+    }
   };
 
   return (
@@ -55,14 +66,13 @@ const ImagesComponent = ({ handleImageDelete, ...props }) => {
           accept=".jpg, .jpeg, .png"
           multiple
           onChange={handleImagesLoaded}
-          {...props}
         />
       </Box>
       <Box sx={{ alignItems: 'flex-start' }}>
         {
-      imgData.length > 0
-        ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
-    }
+          imgData.length > 0
+            ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
+        }
       </Box>
     </Box>
   );

@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
   Grid,
-  Button,
   Alert,
 } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import * as yup from 'yup';
 import AuthForm from '../../components/authorization-form';
 import routes from '../../routing/routes';
 import { login } from '../../store/auth';
 import AuthService from '../../services/auth-service';
 import StyledHeader from '../../components/styled-components/main-header';
+import { StyledSubmitButton } from './register-page';
+
+type InitValues = {
+  email: string,
+  password: string,
+};
+
+type FormikOnSubmit =
+  (values: InitValues, formikHelpers: FormikHelpers<InitValues>) => void | Promise<void>;
 
 const validationSchema = yup.object({
   email: yup.string()
@@ -24,34 +31,34 @@ const validationSchema = yup.object({
     .required('Is required'),
 });
 
-const initialValues = {
+const initialValues: InitValues = {
   email: '',
   password: '',
 };
 
-const LoginPage = () => {
-  const theme = useTheme();
+const LoginPage: React.FC = () => {
   const [urlSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const [error, setError] = React.useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit: FormikOnSubmit = async ({ email, password }) => {
     setError(null);
-    try {
-      const user = await AuthService.login({
-        email,
-        password,
-      });
+    const user = await AuthService.login({
+      email,
+      password,
+    });
+    if (typeof user === 'string') {
+      setError(user);
 
-      const redirectTo = urlSearchParams.get('redirectTo');
-      const loginSuccessAction = login({
-        user,
-        redirectTo,
-      });
-      dispatch(loginSuccessAction);
-    } catch (err) {
-      setError(err.message);
+      return;
     }
+
+    const redirectTo = urlSearchParams.get('redirectTo') ?? undefined;
+    const loginSuccessAction = login({
+      user,
+      redirectTo,
+    });
+    dispatch(loginSuccessAction);
   };
 
   const {
@@ -116,15 +123,14 @@ const LoginPage = () => {
           />
         </Grid>
         <Grid item xs={12} sx={{ mb: 4 }}>
-          <Button
+          <StyledSubmitButton
             disabled={!isValid}
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Login
-          </Button>
+          </StyledSubmitButton>
         </Grid>
       </Grid>
     </AuthForm>

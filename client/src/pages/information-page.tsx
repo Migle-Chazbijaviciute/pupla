@@ -17,7 +17,7 @@ const StyledAnswers = styled(Typography)(({ theme }) => ({
   marginBottom: 40,
 }));
 
-const InformationPage = () => (
+const InformationPage: React.FC = () => (
   <Box sx={{
     display: 'flex',
     justifyContent: 'center',

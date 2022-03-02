@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { authSelector } from '../../store/auth';
 import routes from '../routes';
 
-const AdminProtector = ({ children }) => {
+const AdminProtector: React.FC = ({ children }) => {
   const { pathname } = useLocation();
   const auth = useSelector(authSelector);
 
@@ -12,11 +12,11 @@ const AdminProtector = ({ children }) => {
     return <Navigate to={`${routes.LoginPage}?redirectTo=${pathname}`} />;
   }
 
-  if (auth.user.role !== 'ADMIN') {
+  if (auth.user?.role !== 'ADMIN') {
     return <Navigate to={routes.ProfilePage} />;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default AdminProtector;

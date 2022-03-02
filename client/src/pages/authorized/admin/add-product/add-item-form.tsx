@@ -10,7 +10,7 @@ import {
   Alert,
   Snackbar,
 } from '@mui/material';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import * as yup from 'yup';
 import API from '../../../../services/api-service';
 import StyledGridContainer from '../../../../components/styled-components/grid-container';
@@ -20,6 +20,25 @@ import CategorySelect from '../../../../components/select-components/category-se
 import SizesSelect from '../../../../components/select-components/sizes-select';
 import ImageService from '../../../../services/image-service';
 import ImagesGrid from './images/images-grid';
+import { Image } from '../../../../types';
+
+export type HandleImageDelete = (id: string) => Promise<void>;
+export type UpdateImgData = (data: Image[]) => void;
+
+export type InitialValues = {
+  id?: string
+  label: string,
+  color: string,
+  category: string,
+  price: string,
+  sizes: Array<string>,
+  limitedEdition: boolean,
+  inStock: boolean,
+  images: Array<string>
+};
+
+export type FormikOnSubmit =
+  (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => void | Promise<void>;
 
 const validationSchema = yup.object({
   label: yup.string()
@@ -37,7 +56,7 @@ const validationSchema = yup.object({
   images: yup.array().min(3, 'Must upload 3 images').max(3, 'Must upload maximum 3 images').required('Select images'),
 });
 
-const initialValues = {
+const initialValues: InitialValues = {
   label: '',
   color: '',
   category: '',
@@ -48,21 +67,23 @@ const initialValues = {
   images: [],
 };
 
-const AddItemForm = () => {
-  const [imgData, setImgData] = useState([]);
+const AddItemForm: React.FC = () => {
+  const [imgData, setImgData] = useState<Image[]>([]);
   const [open, setOpen] = useState(false);
 
-  const fileUploadRef = useRef(null);
+  const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const handleUploadFiles = () => {
-    fileUploadRef.current.click();
+    if (fileUploadRef && fileUploadRef.current) {
+      fileUploadRef.current.click();
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const onSubmit = async ({
+  const onSubmit: FormikOnSubmit = async ({
     label, color, category, price, sizes, images, limitedEdition, inStock,
   }, { resetForm }) => {
     await API.createGarment({
@@ -92,7 +113,7 @@ const AddItemForm = () => {
     onSubmit,
   });
 
-  const updateImgData = (newImgData) => {
+  const updateImgData: UpdateImgData = (newImgData) => {
     const imgId = newImgData.map((img) => img.id);
     setFieldValue('images', imgId);
     setImgData([...imgData, ...newImgData]);
@@ -100,7 +121,7 @@ const AddItemForm = () => {
 
   const handleImagesLoaded = async () => {
     const input = fileUploadRef.current;
-    if (input.files.length === 3) {
+    if (input && input.files && input.files.length === 3) {
       const data = await ImageService.uploadImages(input.files);
       updateImgData(data);
     } else {
@@ -108,10 +129,10 @@ const AddItemForm = () => {
     }
   };
 
-  const handleImageDelete = async (id) => {
+  const handleImageDelete: HandleImageDelete = async (id) => {
     await ImageService.deleteImage(id);
     setImgData(imgData.filter((x) => x.id !== id));
-    setFieldValue(values.images.filter((x) => x.id !== id));
+    setFieldValue('images', values.images.filter((imgId) => imgId !== id));
   };
 
   return (
@@ -228,9 +249,9 @@ const AddItemForm = () => {
           </Box>
           <Box sx={{ alignItems: 'flex-start' }}>
             {
-      imgData.length > 0
-        ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
-    }
+              imgData.length > 0
+                ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
+            }
           </Box>
         </Grid>
         <Grid item xs={12}>

@@ -8,6 +8,7 @@ import ProductsGrid from './products-grid';
 import ProductsSort from './products-sort';
 import StyledHeader from '../../components/styled-components/main-header';
 import API from '../../services/api-service';
+import { Garment } from '../../types';
 
 const StyledActions = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -18,13 +19,15 @@ const StyledActions = styled(Box)(({ theme }) => ({
   paddingInline: 38,
 }));
 
-const ProductsPage = () => {
-  const [products, setProducts] = useState([]);
+const ProductsPage: React.FC = () => {
+  const [products, setProducts] = useState<Garment[]>([]);
 
   useEffect(() => {
     (async () => {
-      const { garment } = await API.getGarments();
-      setProducts(garment);
+      const garment = await API.getGarments();
+      if (typeof garment !== 'string') {
+        setProducts(garment);
+      }
     })();
   }, []);
 

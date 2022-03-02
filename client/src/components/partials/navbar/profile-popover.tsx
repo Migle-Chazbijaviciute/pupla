@@ -5,6 +5,7 @@ import {
   IconButton,
   Box,
   Typography,
+  IconButtonProps,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -13,11 +14,11 @@ import AuthService from '../../../services/auth-service';
 import { authSelector } from '../../../store/auth';
 import StyledLink from '../../styled-components/styled-link';
 
-const ProfilePopover = () => {
+const ProfilePopover: React.FC = () => {
   const auth = useSelector(authSelector);
-  const anchorRef = useRef();
+  const anchorRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const handleOpenMenu = () => setMenuOpen(true);
+  const handleOpenMenu: IconButtonProps['onClick'] = () => setMenuOpen(true);
   const handleCloseMenu = () => setMenuOpen(false);
   const handleLogout = () => {
     handleCloseMenu();

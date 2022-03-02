@@ -5,9 +5,14 @@ import {
   InputLabel,
   FormControl,
 } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
+import SelectComponentProps from '../../types/select-component-props';
 
-const countries = [
+type Country = {
+  value: string,
+  title: string,
+};
+
+const countries: Array<Country> = [
   { value: 'AF', title: 'Afghanistan' },
   { value: 'AX', title: 'Aland Islands' },
   { value: 'AL', title: 'Albania' },
@@ -236,7 +241,7 @@ const countries = [
   { value: 'ZW', title: 'Zimbabwe' },
 ];
 
-const CountrySelect = ({ ...props }) => (
+const CountrySelect: React.FC<SelectComponentProps> = ({ ...props }) => (
   <FormControl fullWidth>
     <InputLabel id="country">Select Country</InputLabel>
     <Select
@@ -247,7 +252,7 @@ const CountrySelect = ({ ...props }) => (
     >
       {countries.map(({ value, title }) => (
         <MenuItem
-          key={uuidv4()}
+          key={value}
           value={value}
         >
           {title}

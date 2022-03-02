@@ -5,6 +5,7 @@ import {
   IconButton,
   Box,
   Typography,
+  IconButtonProps,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import routes from '../../../routing/routes';
@@ -19,10 +20,10 @@ const pages = [
   { title: 'SAVED ITEMS', link: routes.SavedPage },
 ];
 
-const ToggleMenu = () => {
-  const anchorRef = useRef();
+const ToggleMenu: React.FC = () => {
+  const anchorRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const handleOpenMenu = () => setMenuOpen(true);
+  const handleOpenMenu: IconButtonProps['onClick'] = () => setMenuOpen(true);
   const handleCloseMenu = () => setMenuOpen(false);
 
   return (

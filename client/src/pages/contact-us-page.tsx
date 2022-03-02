@@ -3,14 +3,14 @@ import { Box, styled } from '@mui/material';
 import StyledHeader from '../components/styled-components/main-header';
 import StyledInfo from '../components/styled-components/styled-info';
 
-const StyledInsta = styled(Box)(({ theme }) => ({
+const StyledInsta = styled('img')(({ theme }) => ({
   marginBottom: 50,
   [theme.breakpoints.up('xs')]: {
     width: '98%',
   },
 }));
 
-const ContactUsPage = () => (
+const ContactUsPage: React.FC = () => (
   <Box sx={{
     display: 'flex',
     flexDirection: 'column',
@@ -27,7 +27,6 @@ const ContactUsPage = () => (
     }}
     >
       <StyledInsta
-        component="img"
         alt="Pupla instagram."
         src="/static/images/pupla-insta.png"
       />

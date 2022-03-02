@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
 } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 import ProductCard from './products-page/product-card';
 import StyledHeader from '../components/styled-components/main-header';
 import StyledGridContainer from '../components/styled-components/grid-container';
+import API from '../services/api-service';
+import { Garment } from '../types';
 
-const SavedPage = () => {
-  const saved = [
-    {
-      img: 'static/stock/blackSet2.jpg',
-      title: 'limited2',
-      price: 50,
-    },
-    {
-      img: 'static/stock/redDress1.jpg',
-      title: 'limited1',
-      price: 50,
-    },
-  ];
+const SavedPage: React.FC = () => {
+  const [products, setProducts] = React.useState<Garment[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const prod = await API.getGarments();
+      if (typeof prod !== 'string') {
+        setProducts(prod);
+      }
+    })();
+  }, []);
 
   return (
     <Box
@@ -32,8 +31,8 @@ const SavedPage = () => {
       <StyledHeader>Saved Items</StyledHeader>
       <StyledGridContainer container maxWidth="90%">
 
-        {saved.length > 0 && saved.img !== undefined ? saved.map((item) => (
-          <ProductCard key={uuidv4()} {...item} shouldAddButton deleteIcon />
+        {products.length > 0 && products[0].images !== undefined ? products.map((item) => (
+          <ProductCard key={item.id} {...item} shouldAddButton deleteIcon />
         ))
           : <Box fontSize={22}>THERE IS NO SAVED ITEMS YET...</Box>}
 

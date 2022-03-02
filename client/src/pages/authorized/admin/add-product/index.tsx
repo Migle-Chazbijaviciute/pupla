@@ -5,7 +5,7 @@ import {
 import StyledHeader from '../../../../components/styled-components/main-header';
 import AddItemForm from './add-item-form';
 
-const AddProduct = () => (
+const AddProduct: React.FC = () => (
   <Box
     sx={{
       display: 'flex',

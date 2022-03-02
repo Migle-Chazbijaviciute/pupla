@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../partials/navbar';
 import Footer from '../partials/footer';
 
-const NoNavLayout = () => {
+const NoNavLayout: React.FC = () => {
   const theme = useTheme();
 
   const vh = `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.mixins.footer.height}px)`;

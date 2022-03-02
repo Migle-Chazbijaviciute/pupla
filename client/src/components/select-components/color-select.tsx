@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Select,
   MenuItem,
@@ -6,14 +6,17 @@ import {
   FormControl,
 } from '@mui/material';
 import API from '../../services/api-service';
+import { SelectComponentProps, Color } from '../../types';
 
-const ColorSelect = ({ ...props }) => {
-  const [fetchedColors, setFetchedColors] = React.useState();
+const ColorSelect: React.FC<SelectComponentProps> = ({ ...props }) => {
+  const [fetchedColors, setFetchedColors] = useState<Color[]>();
 
   useEffect(() => {
     (async () => {
-      const { color } = await API.getColors();
-      setFetchedColors(color);
+      const responseData = await API.getColors();
+      if (typeof responseData !== 'string') {
+        setFetchedColors(responseData);
+      }
     })();
   }, []);
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  Box,
   styled,
 } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { StyledMainBox } from '.';
 
-const StyledHero = styled(Box)(({ theme }) => ({
+const StyledHero = styled('img')(({ theme }) => ({
   position: 'relative',
   [theme.breakpoints.up('xs')]: {
     width: '90%',
@@ -19,9 +18,10 @@ const StyledHero = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('xl')]: {
     width: '60%',
   },
+
 }));
 
-const StyledHeroQoute = styled(Box)(({ theme }) => ({
+const StyledHeroQoute = styled('img')(({ theme }) => ({
   marginTop: 2,
   position: 'relative',
   bottom: 30,
@@ -39,29 +39,17 @@ const StyledHeroQoute = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HomeHero = () => {
-  const theme = useTheme();
-  return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      background: theme.palette.primary.light,
-    }}
-    >
-      <StyledHero
-        component="img"
-        alt="Pupla hero."
-        src="/static/images/hero-image.jpg"
-      />
-      <StyledHeroQoute
-        component="img"
-        alt="Pupla qoute."
-        src="/static/images/feel-the-power.jpg"
-      />
-    </Box>
-  );
-};
+const HomeHero: React.FC = () => (
+  <StyledMainBox>
+    <StyledHero
+      alt="Pupla hero."
+      src="/static/images/hero-image.jpg"
+    />
+    <StyledHeroQoute
+      alt="Pupla qoute."
+      src="/static/images/feel-the-power.jpg"
+    />
+  </StyledMainBox>
+);
 
 export default HomeHero;

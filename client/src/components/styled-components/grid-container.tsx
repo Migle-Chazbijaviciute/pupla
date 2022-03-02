@@ -1,5 +1,7 @@
 import React from 'react';
-import { Grid, styled } from '@mui/material';
+import { Grid, GridProps, styled } from '@mui/material';
+
+type StyledGridContainerProps = GridProps;
 
 const StyledContainer = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -20,7 +22,7 @@ const StyledContainer = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const StyledGridContainer = ({ children, ...props }) => (
+const StyledGridContainer: React.FC<StyledGridContainerProps> = ({ children, ...props }) => (
   <StyledContainer {...props}>
     {children}
   </StyledContainer>

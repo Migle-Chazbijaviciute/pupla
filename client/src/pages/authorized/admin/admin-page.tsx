@@ -11,29 +11,40 @@ import Categories from './categories';
 import Sizes from './sizes';
 import Colors from './colors';
 import Users from './user';
+import {
+  Color, Size, Category, Garment, LoggedInUser,
+} from '../../../types';
 
-const AdminPage = () => {
-  const [state, setState] = useState({
+type StateData = {
+  fetchedColors: Color[] | string,
+  fetchedSizes: Size[] | string,
+  fetchedCategories: Category[] | string,
+  fetchedGarments: Garment[] | string,
+  fetchedUsers: LoggedInUser[] | string,
+};
+
+const AdminPage: React.FC = () => {
+  const [state, setState] = useState<StateData>({
     fetchedColors: [],
     fetchedSizes: [],
     fetchedCategories: [],
     fetchedGarments: [],
     fetchedUsers: [],
   });
+
   const {
     fetchedColors, fetchedSizes, fetchedCategories, fetchedGarments, fetchedUsers,
   } = state;
 
   useEffect(() => {
     (async () => {
-      const [{ color }, { size }, { category }, { garment }, { users }] = await Promise.all([
+      const [color, size, category, garment, users] = await Promise.all([
         API.getColors(),
         API.getSizes(),
         API.getCategories(),
         API.getGarments(),
         API.getUsers(),
       ]);
-
       setState({
         fetchedColors: color,
         fetchedSizes: size,

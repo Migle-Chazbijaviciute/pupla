@@ -24,6 +24,10 @@ import CategorySelect from '../../../../components/select-components/category-se
 import SizesSelect from '../../../../components/select-components/sizes-select';
 import ImageService from '../../../../services/image-service';
 import ImagesGrid from '../add-product/images/images-grid';
+import { Garment } from '../../../../types';
+import {
+  FormikOnSubmit, InitialValues, UpdateImgData, HandleImageDelete,
+} from '../add-product/add-item-form';
 
 const validationSchema = yup.object({
   label: yup.string()
@@ -41,7 +45,7 @@ const validationSchema = yup.object({
   images: yup.array().min(3, 'Must upload 3 images').max(3, 'Must upload maximum 3 images'),
 });
 
-const UpdateItemForm = ({ ...garmentData }) => {
+const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
   if (garmentData === null) return null;
   const [open, setOpen] = useState(false);
 
@@ -53,7 +57,7 @@ const UpdateItemForm = ({ ...garmentData }) => {
   const initSizesIdsArr = garmentData.sizes.map((x) => x.id);
   const receivedImgsIds = garmentData.images.map((img) => img.id);
 
-  const initialValues = useMemo(() => ({
+  const initialValues: InitialValues = useMemo(() => ({
     id: garmentData.id,
     label: garmentData.label,
     color: garmentData.color.id,
@@ -65,13 +69,15 @@ const UpdateItemForm = ({ ...garmentData }) => {
     images: receivedImgsIds,
   }), [garmentData.id]);
 
-  const fileUploadRef = useRef(null);
+  const fileUploadRef = useRef<HTMLInputElement>(null);
 
   const handleUploadFiles = () => {
-    fileUploadRef.current.click();
+    if (fileUploadRef && fileUploadRef.current) {
+      fileUploadRef.current.click();
+    }
   };
 
-  const onSubmit = async ({
+  const onSubmit: FormikOnSubmit = async ({
     id,
     label,
     color,
@@ -118,7 +124,7 @@ const UpdateItemForm = ({ ...garmentData }) => {
 
   const [imgData, setImgData] = useState(receivedImgArr);
 
-  const updateImgData = (newImgData) => {
+  const updateImgData: UpdateImgData = (newImgData) => {
     const imgId = newImgData.map((img) => img.id);
     setFieldValue('images', imgId);
     setImgData([...newImgData]);
@@ -126,7 +132,7 @@ const UpdateItemForm = ({ ...garmentData }) => {
 
   const handleImagesLoaded = async () => {
     const input = fileUploadRef.current;
-    if (input.files.length === 3) {
+    if (input && input.files && input.files.length === 3) {
       const data = await ImageService.uploadImages(input.files);
       updateImgData(data);
     } else {
@@ -134,11 +140,10 @@ const UpdateItemForm = ({ ...garmentData }) => {
     }
   };
 
-  // eslint-disable-next-line no-shadow
-  const handleImageDelete = async (id) => {
+  const handleImageDelete: HandleImageDelete = async (id) => {
     await ImageService.deleteImage(id);
     setImgData(imgData.filter((x) => x.id !== id));
-    setFieldValue(values.images.filter((x) => x.id !== id));
+    setFieldValue('images', values.images.filter((imgId) => imgId !== id));
   };
 
   return (
@@ -255,9 +260,9 @@ const UpdateItemForm = ({ ...garmentData }) => {
           </Box>
           <Box sx={{ alignItems: 'flex-start' }}>
             {
-      imgData !== undefined && imgData.length > 0
-        ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
-    }
+              imgData !== undefined && imgData.length > 0
+                ? <ImagesGrid data={imgData} handleImageDelete={handleImageDelete} /> : null
+            }
           </Box>
         </Grid>
         <Grid item xs={12}>

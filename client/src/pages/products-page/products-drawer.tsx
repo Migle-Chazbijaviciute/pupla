@@ -13,24 +13,33 @@ import {
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import API from '../../services/api-service';
+import { Category, Color, Size } from '../../types';
 
-const ProductsDrawer = () => {
+type Options = {
+  filterName: string,
+  options: Color[] | Size[] | Category[],
+};
+
+type ProductsDrawerStateProps = Array<Options>;
+
+const ProductsDrawer: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState<ProductsDrawerStateProps>([]);
 
   useEffect(() => {
     (async () => {
-      const [{ color }, { size }, { category }] = await Promise.all([
+      const [color, size, category] = await Promise.all([
         API.getColors(),
         API.getSizes(),
         API.getCategories(),
       ]);
-
-      setFilters([
-        { filterName: 'Color', options: color },
-        { filterName: 'Size', options: size },
-        { filterName: 'Category', options: category },
-      ]);
+      if (typeof color !== 'string' && typeof size !== 'string' && typeof category !== 'string') {
+        setFilters([
+          { filterName: 'Color', options: color },
+          { filterName: 'Size', options: size },
+          { filterName: 'Category', options: category },
+        ]);
+      }
     })();
   }, []);
 

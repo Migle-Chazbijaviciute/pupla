@@ -3,10 +3,9 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { DataGrid, GridCellEditCommitParams } from '@mui/x-data-grid';
 import StyledHeader from '../../../components/styled-components/main-header';
+import { Size } from '../../../types';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 250 },
@@ -15,21 +14,22 @@ const columns = [
   },
 ];
 
-const Sizes = ({ data, ...props }) => {
+type SizesProps = {
+  data: Size[] | string,
+};
+
+type HandleUpdate = (e: GridCellEditCommitParams) => void;
+
+const Sizes: React.FC<SizesProps> = ({ data }) => {
+  if (typeof data === 'string') { return null; }
+
   const [sizeUpdate, setSizeUpdate] = useState(data);
-  const [snackbar, setSnackbar] = useState(null);
 
-  const handleCloseSnackbar = () => setSnackbar(null);
-
-  const handleUpdate = (e) => {
+  const handleUpdate: HandleUpdate = (e) => {
     const arr = sizeUpdate.map((oldItem) => {
-      console.log('event:', e);
-      console.log('oldvalue:', oldItem);
       if (oldItem.id === e.id) {
-        setSnackbar({ children: 'Size successfully updated', severity: 'success' });
         return { ...oldItem, [e.field]: e.value };
       }
-      setSnackbar({ children: 'Error while updating size', severity: 'error' });
       return { ...oldItem };
     });
     return setSizeUpdate(arr);
@@ -41,7 +41,6 @@ const Sizes = ({ data, ...props }) => {
       flexDirection: 'column',
       alignItems: 'flex-start',
       justifyContent: 'center',
-      ...props,
     }}
     >
       <StyledHeader>sizes</StyledHeader>
@@ -51,15 +50,9 @@ const Sizes = ({ data, ...props }) => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          disableMultipleSelection
           editMode="cell"
           onCellEditCommit={handleUpdate}
         />
-        {!!snackbar && (
-        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={4000}>
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
-        </Snackbar>
-        )}
       </Box>
       <Button variant="contained" fullWidth type="submit">DELETE SELECTED SIZE</Button>
     </Box>

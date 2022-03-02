@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import {
   Container,
   Box,
 } from '@mui/material';
 
-const ProductFormContainer = ({
+type ProductFormContainerProps = {
+  onSubmit: FormEventHandler<HTMLFormElement>,
+  isValid: boolean,
+  loading: boolean,
+};
+
+const ProductFormContainer: React.FC<ProductFormContainerProps> = ({
   children,
   onSubmit,
+  isValid,
+  loading,
 }) => (
   <Container
     component="main"

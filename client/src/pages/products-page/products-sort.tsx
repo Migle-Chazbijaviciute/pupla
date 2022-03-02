@@ -4,12 +4,14 @@ import {
   MenuItem,
   FormControl,
   Select,
+  SelectChangeEvent,
 } from '@mui/material';
 
+type HandleChange = (event: SelectChangeEvent) => void;
 const ProductsSort = () => {
   const [sort, setSort] = React.useState('');
 
-  const handleChange = (event) => {
+  const handleChange: HandleChange = (event) => {
     setSort(event.target.value);
   };
   return (

@@ -21,7 +21,17 @@ import UpdateProduct from '../pages/authorized/admin/update-product';
 import NavLayout from '../components/layouts/nav-layout';
 import NoNavLayout from '../components/layouts/no-nav-layout';
 
-export default {
+export type LayoutPageName = 'NavLayout' | 'NoNavLayout';
+export type DynamicPageName = 'ErrorPage' | 'ProductPage' | 'UpdateProduct';
+export type ConcretePageName = 'HomePage' | 'ProductsPage' | 'InformationPage' | 'ContactUsPage' | 'SavedPage' | 'LoginPage' | 'RegisterPage' | 'ProfilePage' | 'BagPage' | 'AdminPage' | 'AddProduct';
+
+export type PageName = LayoutPageName | ConcretePageName | DynamicPageName;
+
+export type PageRoutesList = {
+  [key in PageName]: React.FC
+};
+
+const pageRoutesList: PageRoutesList = {
   NavLayout,
   NoNavLayout,
   HomePage,
@@ -39,3 +49,5 @@ export default {
   AddProduct,
   UpdateProduct,
 };
+
+export default pageRoutesList;

@@ -1,11 +1,35 @@
+import { PageName, ConcretePageName, DynamicPageName } from './page-routes-list';
 import {
   PUBLIC_ONLY,
   AUTH,
   USER,
   ADMIN,
-} from './types';
+  AuthType,
+} from './auth-types';
 
-const routeStructure = [
+export type RoutePageData = {
+  index?: true,
+  path?: string,
+  auth?: AuthType
+};
+
+export type ConcreteRoutePageData = RoutePageData & {
+  pageName: ConcretePageName,
+};
+
+export type DynamicRoutePageData = RoutePageData & {
+  pageName: DynamicPageName,
+};
+
+export type RouteData = RouteLayoutData | ConcreteRoutePageData | DynamicRoutePageData;
+
+export type RouteLayoutData = {
+  path: string,
+  pageName: PageName,
+  childRoutes: Array<RouteData>
+};
+
+const routeStructure: Array<RouteData> = [
   {
     path: '/',
     pageName: 'NavLayout',

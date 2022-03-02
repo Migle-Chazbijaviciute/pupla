@@ -1,17 +1,18 @@
 import React from 'react';
-import { Typography, styled } from '@mui/material';
+import { Typography, styled, TypographyProps } from '@mui/material';
 
-const Styled = styled(Typography)(({ theme }, ...sx) => ({
+const Styled = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.dark,
   textTransform: 'uppercase',
   fontSize: '1.2rem',
   textDecoration: 'none',
   textAlign: 'left',
-  ...sx,
 }));
 
-const StyledInfo = ({ children, ...sx }) => (
-  <Styled {...sx}>
+type StyledInfoProps = TypographyProps;
+
+const StyledInfo: React.FC<StyledInfoProps> = ({ children, ...props }) => (
+  <Styled {...props}>
     {children}
   </Styled>
 );

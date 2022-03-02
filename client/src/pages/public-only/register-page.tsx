@@ -3,11 +3,12 @@ import {
   TextField,
   Grid,
   Button,
+  styled,
   FormHelperText,
+  TextFieldProps,
 } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import * as yup from 'yup';
 import AuthForm from '../../components/authorization-form';
 import routes from '../../routing/routes';
@@ -15,6 +16,17 @@ import { login } from '../../store/auth';
 import AuthService from '../../services/auth-service';
 import StyledHeader from '../../components/styled-components/main-header';
 import CountrySelect from '../../components/select-components/country-select';
+import InitialRegistration from '../../types/initial-registration';
+
+type FormikOnSubmit =
+  (
+    values: InitialRegistration,
+    formikHelpers: FormikHelpers<InitialRegistration>
+  ) => void | Promise<void>;
+
+export const StyledSubmitButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+}));
 
 const validationSchema = yup.object({
   name: yup.string()
@@ -66,7 +78,7 @@ const validationSchema = yup.object({
   country: yup.string().required('Select country'),
 });
 
-const initialValues = {
+const initialValues: InitialRegistration = {
   name: '',
   surname: '',
   phoneNumber: '',
@@ -81,11 +93,10 @@ const initialValues = {
   emailAvailable: false,
 };
 
-const RegisterPage = () => {
-  const theme = useTheme();
+const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
 
-  const onSubmit = async ({
+  const onSubmit: FormikOnSubmit = async ({
     name,
     surname,
     phoneNumber,
@@ -109,7 +120,11 @@ const RegisterPage = () => {
       password,
       repeatPassword,
     });
-    dispatch(login({ user }));
+    if (typeof user === 'string') {
+      console.log(user);
+    } else {
+      dispatch(login({ user }));
+    }
   };
 
   const {
@@ -131,7 +146,7 @@ const RegisterPage = () => {
     onSubmit,
   });
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange: TextFieldProps['onChange'] = (e) => {
     if (values.emailChecked) {
       setValues({
         ...values,
@@ -144,7 +159,7 @@ const RegisterPage = () => {
     }
   };
 
-  const handleEmailBlur = (e) => {
+  const handleEmailBlur: TextFieldProps['onBlur'] = (e) => {
     handleBlur(e);
     if (!errors.email) {
       (async () => {
@@ -318,15 +333,14 @@ const RegisterPage = () => {
           />
         </Grid>
         <Grid item xs={12} sx={{ mb: 4 }}>
-          <Button
+          <StyledSubmitButton
             type="submit"
             disabled={!isValid}
             variant="contained"
             fullWidth
-            sx={{ backgroundColor: theme.palette.primary.main }}
           >
             Register
-          </Button>
+          </StyledSubmitButton>
         </Grid>
       </Grid>
     </AuthForm>

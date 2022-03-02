@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
 const Styled = styled(NavLink)(({ theme }) => ({
   color: theme.palette.primary.dark,
@@ -12,8 +12,8 @@ const Styled = styled(NavLink)(({ theme }) => ({
   },
 }));
 
-const StyledLink = ({ children, ...sx }) => (
-  <Styled {...sx}>
+const StyledLink: React.FC<NavLinkProps> = ({ children, ...props }) => (
+  <Styled {...props}>
     {children}
   </Styled>
 );

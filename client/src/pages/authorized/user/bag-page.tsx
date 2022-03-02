@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Grid,
   styled,
@@ -12,11 +12,15 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  SelectChangeEvent,
 } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 import ProductCard from '../../products-page/product-card';
 import StyledHeader from '../../../components/styled-components/main-header';
 import StyledGridContainer from '../../../components/styled-components/grid-container';
+import API from '../../../services/api-service';
+import { Garment } from '../../../types';
+
+type HandleChange = (event: SelectChangeEvent) => void;
 
 const TotalCont = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.light,
@@ -25,27 +29,24 @@ const TotalCont = styled(Grid)(({ theme }) => ({
 const BagPage = () => {
   const [size, setSize] = React.useState('');
   const [qnt, setQnt] = React.useState('1');
+  const [products, setProducts] = React.useState<Garment[]>([]);
 
-  const handleChange = (event) => {
+  const handleChange: HandleChange = (event) => {
     setSize(event.target.value);
   };
 
-  const handleChange2 = (event) => {
+  const handleChange2: HandleChange = (event) => {
     setQnt(event.target.value);
   };
 
-  const saved = [
-    {
-      img: '/static/stock/blackSet1.jpg',
-      title: 'limited1',
-      price: 50,
-    },
-    {
-      img: 'static/stock/blackSet2.jpg',
-      title: 'limited2',
-      price: 50,
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      const prod = await API.getGarments();
+      if (typeof prod !== 'string') {
+        setProducts(prod);
+      }
+    })();
+  }, []);
 
   return (
     <Box
@@ -58,11 +59,11 @@ const BagPage = () => {
       <StyledHeader>MY BAG</StyledHeader>
       <Box>
         <StyledGridContainer container direction="row">
-          {saved.length > 0 && saved.img !== undefined ? (
+          {products.length > 0 && products[0].images !== undefined ? (
             <>
               <Grid item xs={12} md={9}>
-                {saved.map((item) => (
-                  <List key={uuidv4()}>
+                {products.map((item) => (
+                  <List key={item.id}>
                     <ListItem>
                       <Box sx={{
                         display: { xs: 'block', sm: 'flex' },
@@ -83,9 +84,8 @@ const BagPage = () => {
                             <InputLabel id="size">SIZE</InputLabel>
                             <Select
                               labelId="size"
-                              id="size-select"
-                              value={size}
                               label="Size"
+                              value={size}
                               onChange={handleChange}
                             >
                               <MenuItem value="s">S (EU-36)</MenuItem>

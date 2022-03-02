@@ -1,37 +1,33 @@
 import React from 'react';
-import { Box, Link } from '@mui/material';
+import { Box, Link, styled } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import { useTheme } from '@emotion/react';
 
-const Footer = () => {
-  const theme = useTheme();
+const StyledFooterBox = styled(Box)(({ theme }) => ({
+  height: theme.mixins.footer.height,
+  background: theme.palette.secondary.main,
+  display: 'flex',
+  paddingInline: 20,
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  borderTop: 'solid 1px',
+  borderColor: theme.palette.primary.dark,
+}));
 
-  return (
-    <Box>
-      <Box sx={{
-        height: theme.mixins.footer.height,
-        background: theme.palette.secondary.main,
-        display: 'flex',
-        paddingInline: 20,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderTop: 'solid 1px',
-        borderColor: theme.palette.primary.border,
-      }}
-      >
-        <Box>
-          © 2022, PÙPLA
-        </Box>
-        <Box>
-          <Link href="https://www.facebook.com/sho.pupla/" target="blank"><FacebookIcon sx={{ mx: 5 }} /></Link>
-          <Link href="https://www.instagram.com/sho.pupla/" target="blank">
-            <InstagramIcon sx={{ mx: 5 }} />
-          </Link>
-        </Box>
+const Footer: React.FC = () => (
+  <Box>
+    <StyledFooterBox>
+      <Box>
+        © 2022, PÙPLA
       </Box>
-    </Box>
-  );
-};
+      <Box>
+        <Link href="https://www.facebook.com/sho.pupla/" target="blank"><FacebookIcon sx={{ mx: 5 }} /></Link>
+        <Link href="https://www.instagram.com/sho.pupla/" target="blank">
+          <InstagramIcon sx={{ mx: 5 }} />
+        </Link>
+      </Box>
+    </StyledFooterBox>
+  </Box>
+);
 
 export default Footer;

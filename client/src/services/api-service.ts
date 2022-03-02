@@ -1,27 +1,32 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { dataFetchError } from '../helpers/data-fetch-error-helper';
+import {
+  Color, Size, Category, Image, Garment,
+} from '../types';
 import SessionService from './session-service';
+import LoggedInUser from '../types/logged-in-user';
+import { InitialValues } from '../pages/authorized/admin/add-product/add-item-form';
 
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const getColors = async () => {
+const getColors = async (): Promise<Color[] | string> => {
   try {
-    const { data } = await instance.get('/colors');
-    return data;
+    const response = await instance.get('/colors');
+    return response.data.color;
   } catch (error) {
     return dataFetchError(error);
   }
 };
 
-const getSizes = async () => {
+const getSizes = async (): Promise<Size[] | string> => {
   try {
     const response = await instance.get('/sizes');
-    return response.data;
+    return response.data.size;
   } catch (error) {
     return dataFetchError(error);
   }
@@ -36,19 +41,19 @@ const getSizes = async () => {
 //   }
 // };
 
-const createSize = async ({ title }) => {
+const createSize = async (data: Size) => {
   try {
-    const { size } = await instance.post('/sizes', { title });
-    return size;
+    const response = await instance.post<Size>('/sizes', data);
+    return response.data;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    return dataFetchError(error);
   }
 };
 
-const getCategories = async () => {
+const getCategories = async (): Promise<Category[] | string> => {
   try {
     const response = await instance.get('/categories');
-    return response.data;
+    return response.data.category;
   } catch (error) {
     return dataFetchError(error);
   }
@@ -64,21 +69,21 @@ const validateToken = () => {
   return token;
 };
 
-const getUsers = async () => {
+const getUsers = async (): Promise<LoggedInUser[] | string> => {
   const token = validateToken();
   try {
-    const { data } = await instance.get('/users', {
+    const response = await instance.get('/users', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return data;
+    return response.data.users;
   } catch (error) {
     return dataFetchError(error);
   }
 };
 
-const getImages = async () => {
+const getImages = async (): Promise<Image[] | string> => {
   try {
     const response = await instance.get('/images');
     return response.data;
@@ -87,16 +92,16 @@ const getImages = async () => {
   }
 };
 
-const getGarments = async () => {
+const getGarments = async (): Promise<Garment[] | string> => {
   try {
     const response = await instance.get('/garments');
-    return response.data;
+    return response.data.garment;
   } catch (error) {
     return dataFetchError(error);
   }
 };
 
-const getGarment = async (id) => {
+const getGarment = async (id: string): Promise<Garment | string> => {
   try {
     const response = await instance.get(`/garments/${id}`);
     return response.data;
@@ -114,14 +119,14 @@ const createGarment = async ({
   images,
   limitedEdition,
   inStock,
-}) => {
+}: InitialValues) => {
   try {
-    const { garment } = await instance.post('/garments', {
+    const response = await instance.post('/garments', {
       label, color, category, price, sizes, images, limitedEdition, inStock,
     });
-    return garment;
+    return response.data;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    return dataFetchError(error);
   }
 };
 
@@ -135,7 +140,7 @@ const updateGarment = async ({
   inStock,
   limitedEdition,
   images,
-}) => {
+}: InitialValues) => {
   try {
     const response = await instance.patch(`/garments/${id}`, {
       label,
@@ -149,24 +154,32 @@ const updateGarment = async ({
     });
     return response.data;
   } catch (error) {
-    throw new Error(error.response.data.message);
+    return dataFetchError(error);
   }
 };
 
-const deleteGarment = async (id) => {
+const deleteGarment = async (id: string): Promise<void | string> => {
   try {
     await instance.delete(`/garments/${id}`);
+    return console.log('Garment deleted successfully');
   } catch (error) {
-    throw new Error(error.response.data.message);
+    return dataFetchError(error);
   }
 };
 
-const getLimitedGarmentsImages = async () => {
+const getLimitedGarmentsImages = async (): Promise<Image[] | string> => {
   try {
-    const { garment } = await getGarments();
-    const filtered = garment.filter(({ limitedEdition }) => limitedEdition === true);
-    const limitedImages = filtered.map((x) => x.images);
-    return limitedImages;
+    const garments = await getGarments();
+    if (typeof garments === 'string') {
+      return garments;
+    }
+    const filtered = garments.filter(({ limitedEdition }) => limitedEdition === true);
+    const limitedImages: Image[] = [];
+    filtered
+      .map(({ images }) => images
+        .forEach((img) => limitedImages.push(img)));
+
+    return limitedImages as unknown as Image[];
   } catch (error) {
     return dataFetchError(error);
   }
