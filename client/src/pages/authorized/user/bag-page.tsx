@@ -57,68 +57,90 @@ const BagPage = () => {
       }}
     >
       <StyledHeader>MY BAG</StyledHeader>
-      <Box>
-        <StyledGridContainer container direction="row">
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <StyledGridContainer width="90%" container direction="row">
           {products.length > 0 && products[0].images !== undefined ? (
             <>
-              <Grid item xs={12} md={9}>
+              <Grid item xs={12}>
                 {products.map((item) => (
-                  <List key={item.id}>
-                    <ListItem>
-                      <Box sx={{
-                        display: { xs: 'block', sm: 'flex' },
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-start',
-                      }}
-                      >
-                        <ProductCard {...item} deleteIcon />
+                  <Box key={item.id}>
+                    <List>
+                      <ListItem>
                         <Box sx={{
                           display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'flex-start',
-                          justifyContent: 'flex-start',
+                          flexDirection: { xs: 'column', md: 'row' },
+                          alignItems: 'center',
+                          justifyContent: { xs: 'center', md: 'space-around' },
                         }}
                         >
-                          <FormControl fullWidth sx={{ mt: 12, mb: 10, width: { sm: 200 } }}>
-                            <InputLabel id="size">SIZE</InputLabel>
-                            <Select
-                              labelId="size"
-                              label="Size"
-                              value={size}
-                              onChange={handleChange}
+                          <ProductCard
+                            {...item}
+                            deleteIcon
+                            sx={{
+                              width: '100%',
+                              height: 'auto',
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <FormControl
+                              fullWidth
+                              sx={{
+                                mb: 10,
+                                width: { xs: 200, sm: 300, md: 400 },
+                              }}
                             >
-                              <MenuItem value="s">S (EU-36)</MenuItem>
-                              <MenuItem value="m">M (EU-38)</MenuItem>
-                              <MenuItem value="l">L (EU-40)</MenuItem>
-                            </Select>
-                          </FormControl>
-                          <FormControl fullWidth sx={{ mb: 10, width: { sm: 200 } }}>
-                            <InputLabel id="qnt">QUANTITY</InputLabel>
-                            <Select
-                              labelId="qnt"
-                              id="qnt-select"
-                              value={qnt}
-                              label="Quantity"
-                              onChange={handleChange2}
+                              <InputLabel id="size">SIZE</InputLabel>
+                              <Select
+                                labelId="size"
+                                label="Size"
+                                value={size}
+                                onChange={handleChange}
+                              >
+                                <MenuItem value="s">S (EU-36)</MenuItem>
+                                <MenuItem value="m">M (EU-38)</MenuItem>
+                                <MenuItem value="l">L (EU-40)</MenuItem>
+                              </Select>
+                            </FormControl>
+                            <FormControl
+                              fullWidth
+                              sx={{
+                                mb: 10,
+                                width: { xs: 200, sm: 300, md: 400 },
+                              }}
                             >
-                              <MenuItem value="1">1</MenuItem>
-                              <MenuItem value="2">2</MenuItem>
-                              <MenuItem value="3">3</MenuItem>
-                              <MenuItem value="4">4</MenuItem>
-                              <MenuItem value="5">5</MenuItem>
-                            </Select>
-                          </FormControl>
+                              <InputLabel id="qnt">QUANTITY</InputLabel>
+                              <Select
+                                labelId="qnt"
+                                id="qnt-select"
+                                value={qnt}
+                                label="Quantity"
+                                onChange={handleChange2}
+                              >
+                                <MenuItem value="1">1</MenuItem>
+                                <MenuItem value="2">2</MenuItem>
+                                <MenuItem value="3">3</MenuItem>
+                                <MenuItem value="4">4</MenuItem>
+                                <MenuItem value="5">5</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Box>
                         </Box>
-                      </Box>
-                    </ListItem>
-                  </List>
+                      </ListItem>
+                    </List>
+                    <Divider />
+                  </Box>
                 ))}
               </Grid>
               <TotalCont
                 item
                 xs={12}
-                md={3}
               >
                 <Typography sx={{
                   fontSize: 25,
