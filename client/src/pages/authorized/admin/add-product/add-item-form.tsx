@@ -265,7 +265,7 @@ const AddItemForm: React.FC = () => {
           </Button>
           <Snackbar
             open={open}
-            autoHideDuration={2000}
+            autoHideDuration={3500}
             onClose={handleClose}
           >
             <Alert severity="success">Item successfully added!</Alert>
