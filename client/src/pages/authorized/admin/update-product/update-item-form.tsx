@@ -67,7 +67,7 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
     limitedEdition: garmentData.limitedEdition,
     inStock: garmentData.inStock,
     images: receivedImgsIds,
-  }), [garmentData]);
+  }), [garmentData.id]);
 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
@@ -99,7 +99,7 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
       limitedEdition,
       images,
     });
-    window.location.reload();
+    window.location.replace(document.referrer);
     setOpen(true);
   };
 
@@ -275,7 +275,7 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
           </Button>
           <Snackbar
             open={open}
-            autoHideDuration={2000}
+            autoHideDuration={3500}
             onClose={handleClose}
           >
             <Alert severity="success">Item successfully updated!</Alert>
