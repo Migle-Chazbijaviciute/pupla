@@ -32,7 +32,15 @@ const SavedPage: React.FC = () => {
       <StyledGridContainer container maxWidth="90%">
 
         {products.length > 0 && products[0].images !== undefined ? products.map((item) => (
-          <ProductCard key={item.id} {...item} shouldAddButton deleteIcon />
+          <ProductCard
+            key={item.id}
+            deleteIcon
+            shouldAddButton
+            {...item}
+            sx={{
+              height: { xs: 300, sm: 350, md: 450 },
+            }}
+          />
         ))
           : <Box fontSize={22}>THERE IS NO SAVED ITEMS YET...</Box>}
 
