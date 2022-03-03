@@ -3,7 +3,10 @@ import {
   Box,
   Button,
   Link,
+  Divider,
+  Grid,
 } from '@mui/material';
+// import StyledGridContainer from 'components/styled-components/grid-container';
 import StyledHeader from '../../../components/styled-components/main-header';
 import StyledInfo from '../../../components/styled-components/styled-info';
 import API from '../../../services/api-service';
@@ -40,32 +43,20 @@ const Products: React.FC<ProductsProps> = ({ data }) => {
     }}
     >
       <StyledHeader>products</StyledHeader>
-      <Box sx={{
-        gap: 20,
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}
-      >
+      <Grid container>
         {cardData.map(({
           id, price, label, colorTitle, categoryTitle, img,
         }) => (
-          <Box
-            key={id}
-            position="relative"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              flexWrap: 'wrap',
-              boxShadow: 1,
-            }}
-          >
+          <Grid sx={{ boxShadow: 1 }} item key={id} xs={12} sm={6} md={4} lg={3} xl={2}>
             <Link href={`/product/${id}`}>
               <Box
                 src={img}
                 component="img"
                 sx={{
-                  width: 200,
+                  width: '100%',
+                  height: { xs: 300 },
                   paddingBlock: 5,
+                  objectFit: 'cover',
                 }}
                 alt={label}
                 loading="lazy"
@@ -78,10 +69,23 @@ const Products: React.FC<ProductsProps> = ({ data }) => {
               mb: 5,
             }}
             >
-              <StyledInfo sx={{ fontSize: '1rem' }}>{label}</StyledInfo>
-              <StyledInfo sx={{ fontSize: '1rem' }}>{colorTitle}</StyledInfo>
-              <StyledInfo sx={{ fontSize: '1rem' }}>{categoryTitle}</StyledInfo>
-              <StyledInfo sx={{ fontSize: '1rem', fontWeight: 550 }}>
+              <StyledInfo sx={{ fontSize: { xs: '0.95rem', xl: '1rem' } }}>{label}</StyledInfo>
+              <Divider />
+              <StyledInfo
+                sx={{
+                  fontSize: { xs: '0.95rem', xl: '1rem' },
+                }}
+              >
+                Color:
+                {'  '}
+                {colorTitle}
+              </StyledInfo>
+              <StyledInfo sx={{ fontSize: { xs: '0.95rem', xl: '1rem' } }}>
+                Category:
+                {'  '}
+                {categoryTitle}
+              </StyledInfo>
+              <StyledInfo sx={{ fontSize: { xs: '0.95rem', xl: '1rem' }, fontWeight: 550 }}>
                 {price}
                 €
               </StyledInfo>
@@ -93,10 +97,10 @@ const Products: React.FC<ProductsProps> = ({ data }) => {
               <Button size="small" variant="outlined" href={`/update-product/${id}`}>UPDATE</Button>
               <Button size="small" variant="outlined" onClick={() => handleDelete(id)}>DELETE</Button>
             </Box>
-          </Box>
+          </Grid>
         ))}
         <Button variant="contained" fullWidth sx={{ my: 5 }} href="/add-product">ADD NEW PRODUCT</Button>
-      </Box>
+      </Grid>
     </Box>
   );
 };
