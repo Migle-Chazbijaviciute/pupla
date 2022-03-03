@@ -67,7 +67,7 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
     limitedEdition: garmentData.limitedEdition,
     inStock: garmentData.inStock,
     images: receivedImgsIds,
-  }), [garmentData.id]);
+  }), [garmentData]);
 
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
@@ -87,7 +87,7 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
     inStock,
     limitedEdition,
     images,
-  }, { resetForm }) => {
+  }) => {
     await API.updateGarment({
       id,
       label,
@@ -99,8 +99,8 @@ const UpdateItemForm: React.FC<Garment> = ({ ...garmentData }) => {
       limitedEdition,
       images,
     });
+    window.location.reload();
     setOpen(true);
-    resetForm();
   };
 
   const {
