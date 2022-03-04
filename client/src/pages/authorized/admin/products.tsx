@@ -7,6 +7,7 @@ import {
   Grid,
 } from '@mui/material';
 // import StyledGridContainer from 'components/styled-components/grid-container';
+import routes from 'routing/routes';
 import StyledHeader from '../../../components/styled-components/main-header';
 import StyledInfo from '../../../components/styled-components/styled-info';
 import API from '../../../services/api-service';
@@ -48,7 +49,7 @@ const Products: React.FC<ProductsProps> = ({ data }) => {
           id, price, label, colorTitle, categoryTitle, img,
         }) => (
           <Grid sx={{ boxShadow: 1 }} item key={id} xs={12} sm={6} md={4} lg={3} xl={2}>
-            <Link href={`/product/${id}`}>
+            <Link href={`${routes.ProductPage}${id}`}>
               <Box
                 src={img}
                 component="img"
@@ -94,7 +95,7 @@ const Products: React.FC<ProductsProps> = ({ data }) => {
               display: 'flex', flexDirection: 'row', justifyContent: 'space-around', pb: 5,
             }}
             >
-              <Button size="small" variant="outlined" href={`/update-product/${id}`}>UPDATE</Button>
+              <Button size="small" variant="outlined" href={`${routes.UpdateProduct}${id}`}>UPDATE</Button>
               <Button size="small" variant="outlined" onClick={() => handleDelete(id)}>DELETE</Button>
             </Box>
           </Grid>

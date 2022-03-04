@@ -1,7 +1,7 @@
 const routes = {
   HomePage: '/',
   ProductsPage: '/products',
-  ProductPage: '/product/:id',
+  ProductPage: '/product/',
   InformationPage: '/information',
   ContactUsPage: '/contactUs',
   SavedPage: '/saved',
@@ -12,7 +12,7 @@ const routes = {
   BagPage: '/bag',
   AdminPage: '/admin',
   AddProduct: '/add-product',
-  UpdateProduct: '/update-product/:id',
+  UpdateProduct: '/update-product/',
 };
 
 export default routes;

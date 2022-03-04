@@ -12,6 +12,7 @@ import {
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import routes from 'routing/routes';
 import StyledInfo from '../../components/styled-components/styled-info';
 import { Image } from '../../types';
 
@@ -38,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Grid sx={{ width: { xs: '100%', lg: '80%' } }} position="relative" item key={id} xs={12} sm={6} md={4} xl={3}>
-      <Link href={`/product/${id}`}>
+      <Link href={`${routes.ProductPage}${id}`}>
         <Box
           src={images[0].src}
           component="img"
