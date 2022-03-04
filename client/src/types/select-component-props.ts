@@ -1,5 +1,5 @@
-import { SelectProps, TextFieldProps } from "@mui/material";
-import { FormEventHandler } from "react";
+import { SelectProps, TextFieldProps } from '@mui/material';
+import { FormEventHandler } from 'react';
 
 type SelectComponentProps = SelectProps & {
   name: string,

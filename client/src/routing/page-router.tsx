@@ -13,17 +13,14 @@ const generateRoutesRecursive = (routeData: RouteData): RouteElement => {
   if ((routeData as RouteLayoutData).childRoutes) {
     const { pageName, path, childRoutes } = routeData as RouteLayoutData;
     return (
-      // grazinamas routas(Layoutas iprastai), kuriame yra children
       <Route key={pageName} path={path} element={<Page />}>
         {childRoutes.map(generateRoutesRecursive)}
       </Route>
     );
   }
-  // tikrinama ar yra pageProtector[gautu per props auth]
   const { auth, index, path } = routeData as RoutePageData;
   let authenticatedPage: React.ReactNode;
-  // jeigu tokia apsauga puslapiui taikoma tai imama apsauga gautu
-  // raktu ir perduodamas page per kuri iteruojam
+
   if (auth) {
     authenticatedPage = pageProtectors[auth](Page);
   } else {
@@ -31,7 +28,6 @@ const generateRoutesRecursive = (routeData: RouteData): RouteElement => {
   }
 
   return (
-    // grazinamas routas be children (todel uzsidaro savaime)
     <Route
       key={routeData.pageName}
       path={path}

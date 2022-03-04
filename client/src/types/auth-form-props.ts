@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler } from 'react';
 
 type AuthFormProps = {
   title?: string,

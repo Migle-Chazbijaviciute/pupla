@@ -4,13 +4,13 @@ const theme = createTheme({
   spacing: 2,
   palette: {
     primary: {
-      main: '#060607', // beveik juoda
-      light: '#E6E4E4', // sviesi viso background
-      dark: '#6B6767', // tamsiai pilka-srifto
+      main: '#060607', // almost black
+      light: '#E6E4E4', // light background
+      dark: '#6B6767', // dark grey-text
     },
     secondary: {
-      main: '#D9D9D7', // sviesiai pilka
-      dark: '#3A3A3A', // labai tamsiai pilka
+      main: '#D9D9D7', // light grey
+      dark: '#3A3A3A', // very dark grey
     },
   },
   typography: {

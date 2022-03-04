@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  // Link,
 } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Image } from '../../types';
@@ -25,7 +24,6 @@ const ImageSlider: React.FC<SliderProps> = ({ sliderData }) => {
       {
         sliderData.map(({ id, src }) => (
           <Box key={id} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            {/* <Link href={`/product/${itemId}`}> */}
             <Box
               component="img"
               sx={{
@@ -36,7 +34,6 @@ const ImageSlider: React.FC<SliderProps> = ({ sliderData }) => {
               alt={src}
               src={src}
             />
-            {/* </Link> */}
           </Box>
         ))
       }

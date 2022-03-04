@@ -9,4 +9,3 @@ export type { default as Garment } from './garment';
 export type { default as SelectComponentProps } from './select-component-props';
 export type { default as ErrorResponse } from './error';
 export type { default as LoggedInUser } from './logged-in-user';
-

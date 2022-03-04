@@ -32,15 +32,6 @@ const getSizes = async (): Promise<Size[] | string> => {
   }
 };
 
-// const updateSize = async (newValue) => {
-//   try {
-//     const allSizes = await getSizes();
-//     return response.data;
-//   } catch (error) {
-//     return dataFetchError(error);
-//   }
-// };
-
 const createSize = async (data: Size) => {
   try {
     const response = await instance.post<Size>('/sizes', data);
@@ -189,7 +180,6 @@ const API = {
   getColors,
   getSizes,
   createSize,
-  // updateSize,
   getCategories,
   getUsers,
   getImages,

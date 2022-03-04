@@ -1,4 +1,3 @@
-
 type UserProfile = {
   name: string,
   surname: string,
