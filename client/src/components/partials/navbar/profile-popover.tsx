@@ -38,6 +38,7 @@ const ProfilePopover: React.FC = () => {
           auth.user?.role === 'USER'
             ? (
               <Menu
+                disableScrollLock
                 open={menuOpen}
                 onClose={handleCloseMenu}
                 anchorEl={anchorRef.current}
@@ -61,6 +62,7 @@ const ProfilePopover: React.FC = () => {
               </Menu>
             ) : (
               <Menu
+                disableScrollLock
                 open={menuOpen}
                 onClose={handleCloseMenu}
                 anchorEl={anchorRef.current}
@@ -90,6 +92,7 @@ const ProfilePopover: React.FC = () => {
             ))
         : (
           <Menu
+            disableScrollLock
             open={menuOpen}
             onClose={handleCloseMenu}
             anchorEl={anchorRef.current}
