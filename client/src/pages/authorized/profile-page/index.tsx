@@ -95,6 +95,7 @@ const ProfilePage = () => {
     city,
     zipcode,
   }) => {
+    window.location.reload();
     await ProfileService.updateUserData({
       name,
       surname,
